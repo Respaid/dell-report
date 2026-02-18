@@ -1511,11 +1511,73 @@
   .ai-stack-arrow { display: flex; align-items: center; font-size: 16px; color: var(--text-tertiary); padding: 0 6px; flex-shrink: 0; }
   .ai-stack-footnote { font-size: 12px; color: var(--text-tertiary); margin-top: 14px; font-style: italic; line-height: 1.5; }
 
+  /* ============ TWO-PATH COMPARISON ============ */
+  .path-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0 0;
+  }
+  .path-box {
+    border-radius: 12px;
+    padding: 20px 24px;
+    border: 1px solid var(--border);
+    position: relative;
+  }
+  .path-box.path-good {
+    background: rgba(0,201,167,0.06);
+    border-color: rgba(0,201,167,0.3);
+  }
+  .path-box.path-bad {
+    background: rgba(239,68,68,0.06);
+    border-color: rgba(239,68,68,0.3);
+  }
+  .path-box-tag {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .path-good .path-box-tag { color: var(--accent); }
+  .path-bad .path-box-tag { color: #ef4444; }
+  .path-box-pct {
+    font-size: 36px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    line-height: 1.1;
+  }
+  .path-good .path-box-pct { color: var(--accent); }
+  .path-bad .path-box-pct { color: #ef4444; }
+  .path-box-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin: 4px 0 10px;
+  }
+  .path-box-detail {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    line-height: 1.5;
+  }
+  .path-box-detail strong { color: var(--text-secondary); }
+  .path-box-count {
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 10px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    display: inline-block;
+  }
+  .path-good .path-box-count { color: var(--accent); background: rgba(0,201,167,0.1); }
+  .path-bad .path-box-count { color: #ef4444; background: rgba(239,68,68,0.1); }
+
   @media (max-width: 768px) {
     .gap-cards { grid-template-columns: 1fr; }
     .tier-row { grid-template-columns: 70px 1fr 50px 60px 90px; gap: 8px; }
     .ai-stack-flow { flex-direction: column; gap: 8px; }
     .ai-stack-arrow { transform: rotate(90deg); justify-content: center; padding: 4px 0; }
+    .path-compare { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -1551,9 +1613,9 @@
   <!-- ====== PROGRESSION HERO (Full Screen) ====== -->
   <div class="progression-hero">
     <div class="progression-eyebrow">Batch 3 Performance</div>
-    <div class="progression-headline">Nearly 1 in 4 accounts recovered.<br>Each batch performs better than the last.</div>
+    <div class="progression-headline">More than 1 in 4 accounts recovered.<br>Each batch performs better than the last.</div>
 
-    <div class="progression-big-number">24.9%</div>
+    <div class="progression-big-number">26.2%</div>
     <div class="progression-big-label">Case Recovery Rate — and improving</div>
 
     <div class="progression-steps">
@@ -1570,14 +1632,14 @@
       </div>
       <div class="progression-arrow">→</div>
       <div class="progression-step b3">
-        <div class="progression-step-rate">24.9%</div>
+        <div class="progression-step-rate">26.2%</div>
         <div class="progression-step-bar"></div>
         <div class="progression-step-label">Batch 3</div>
       </div>
     </div>
 
     <div class="progression-improvement">
-      <span class="progression-improvement-badge">+74% improvement</span>
+      <span class="progression-improvement-badge">+83% improvement</span>
       <span class="progression-improvement-text">from Batch 1 to Batch 3</span>
     </div>
 
@@ -1591,12 +1653,12 @@
   <div class="hero-stats">
     <div class="hero-card highlight">
       <div class="hero-label">Total Recovered</div>
-      <div class="hero-value has-tooltip" data-tooltip="Sum of all payments received across 3 batches: $43K (B1) + $27K (B2) + $207K (B3) = $277K gross recovered.">$277K</div>
-      <div class="hero-sub">across <span class="has-tooltip" data-tooltip="138 accounts out of 650 total = 21.2% case recovery rate.">138 accounts</span> — <strong>21.2% case rate</strong></div>
+      <div class="hero-value has-tooltip" data-tooltip="Sum of all payments received across 3 batches: $43K (B1) + $27K (B2) + $235K (B3) = $305K gross recovered.">$305K</div>
+      <div class="hero-sub">across <span class="has-tooltip" data-tooltip="143 accounts out of 650 total = 22.0% case recovery rate.">143 accounts</span> — <strong>22.0% case rate</strong></div>
     </div>
     <div class="hero-card">
       <div class="hero-label">Net to Dell</div>
-      <div class="hero-value has-tooltip" data-tooltip="$277K recovered − $82K Respaid fees = $195K net to Dell. No upfront cost — fees deducted from recoveries only.">$195K</div>
+      <div class="hero-value has-tooltip" data-tooltip="$305K recovered − $90K Respaid fees = $216K net to Dell. No upfront cost — fees deducted from recoveries only.">$216K</div>
       <div class="hero-sub">after all fees — <strong>your bottom line</strong></div>
     </div>
     <div class="hero-card">
@@ -1650,7 +1712,7 @@
   <div class="callout">
     <div class="callout-text">
       Each batch, our AI learns from the previous results.<br>
-      Batch 3 recovered <em>4.8x more</em> than Batch 1 — dollar recovery rate jumped <em>+161%</em>.
+      Batch 3 recovered <em>5.5x more</em> than Batch 1 — dollar recovery rate jumped <em>+197%</em>.
     </div>
   </div>
 
@@ -1718,19 +1780,19 @@
       </div>
       <div class="batch-stat">
         <div class="batch-stat-label">Recovered</div>
-        <div class="batch-stat-value green">$207K</div>
+        <div class="batch-stat-value green">$235K</div>
       </div>
       <div class="batch-stat">
         <div class="batch-stat-label">Recovery Rate</div>
-        <div class="batch-stat-value green">24.9%</div>
+        <div class="batch-stat-value green">26.2%</div>
       </div>
       <div class="batch-stat">
         <div class="batch-stat-label">Recovery Rate ($)</div>
-        <div class="batch-stat-value green">18.5%</div>
+        <div class="batch-stat-value green">21.1%</div>
       </div>
       <div class="batch-stat">
         <div class="batch-stat-label">Net to Dell</div>
-        <div class="batch-stat-value green">$151.4K</div>
+        <div class="batch-stat-value green">$172K</div>
       </div>
     </div>
   </div>
@@ -1746,39 +1808,39 @@
     <div class="story-card">
       <div class="story-icon green">📈</div>
       <h3>Recovery Rate (Cases)</h3>
-      <div class="story-big-number has-tooltip" data-tooltip="100 accounts recovered out of 401 placed in Batch 3 = 24.9% case recovery rate." style="color: var(--accent)">24.9%</div>
+      <div class="story-big-number has-tooltip" data-tooltip="105 accounts recovered out of 401 placed in Batch 3 = 26.2% case recovery rate." style="color: var(--accent)">26.2%</div>
       <div class="story-detail">Highest case recovery rate — Batch 3</div>
       <div class="evolution">
         <span class="evo-from">14.3%</span>
         <span class="evo-arrow">→</span>
-        <span class="evo-to">24.9%</span>
-        <span class="evo-badge">+74%</span>
+        <span class="evo-to">26.2%</span>
+        <span class="evo-badge">+83%</span>
       </div>
     </div>
 
     <div class="story-card">
       <div class="story-icon green">💵</div>
       <h3>Recovery Rate ($)</h3>
-      <div class="story-big-number has-tooltip" data-tooltip="$206,699 recovered ÷ $1,115,590 placed in Batch 3 = 18.5%. Grew from 7.1% in B1 — strongest improvement across all metrics." style="color: var(--accent)">18.5%</div>
+      <div class="story-big-number has-tooltip" data-tooltip="$235,310 recovered ÷ $1,115,821 placed in Batch 3 = 21.1%. Grew from 7.1% in B1 — strongest improvement across all metrics." style="color: var(--accent)">21.1%</div>
       <div class="story-detail">Dollar recovery rate — <strong>fastest-growing metric</strong></div>
       <div class="evolution">
         <span class="evo-from">7.1%</span>
         <span class="evo-arrow">→</span>
-        <span class="evo-to">18.5%</span>
-        <span class="evo-badge">+161%</span>
+        <span class="evo-to">21.1%</span>
+        <span class="evo-badge">+197%</span>
       </div>
     </div>
 
     <div class="story-card">
       <div class="story-icon blue">💰</div>
       <h3>$ Recovered per Batch</h3>
-      <div class="story-big-number" style="color: var(--blue)">$207K</div>
-      <div class="story-detail">Batch 3 recovered <strong>4.8x more</strong> than Batch 1</div>
+      <div class="story-big-number" style="color: var(--blue)">$235K</div>
+      <div class="story-detail">Batch 3 recovered <strong>5.5x more</strong> than Batch 1</div>
       <div class="evolution">
         <span class="evo-from">$43K</span>
         <span class="evo-arrow">→</span>
-        <span class="evo-to">$207K</span>
-        <span class="evo-badge">+377%</span>
+        <span class="evo-to">$235K</span>
+        <span class="evo-badge">+447%</span>
       </div>
     </div>
 
@@ -1818,8 +1880,8 @@
     <div class="story-card wide">
       <div class="story-icon green">⚖️</div>
       <h3>Dispute Resolution</h3>
-      <div class="story-big-number has-tooltip" data-tooltip="69 debtors filed disputes (wrong amount, already paid, not their debt, etc.). 61 resolved, 8 still open." style="color: var(--green)">69</div>
-      <div class="story-detail">Disputes resolved — <strong class="has-tooltip" data-tooltip="36 disputes were handled entirely by AI: verifying payment proof, cross-referencing records, and auto-closing resolved cases. 25 required human review.">36 by AI</strong> automatically</div>
+      <div class="story-big-number has-tooltip" data-tooltip="69 debtors filed disputes (wrong amount, already paid, not their debt, etc.). 62 resolved, 7 still open." style="color: var(--green)">69</div>
+      <div class="story-detail">Disputes resolved — <strong class="has-tooltip" data-tooltip="36 disputes were handled entirely by AI: verifying payment proof, cross-referencing records, and auto-closing resolved cases. 26 required human review.">36 by AI</strong> automatically</div>
     </div>
   </div>
 
@@ -1836,20 +1898,20 @@
       <div class="nonpay-bar-total">$2.12M total placed</div>
     </div>
     <div class="nonpay-bar">
-      <div class="nonpay-bar-segment seg-recovered" style="width: 21.2%" title="Recovered: 138 accounts ($277K)">21.2%</div>
-      <div class="nonpay-bar-segment seg-noresponse" style="width: 58.9%" title="No Response: 383 accounts ($1.44M)">58.9%</div>
+      <div class="nonpay-bar-segment seg-recovered" style="width: 22.0%" title="Recovered: 143 accounts ($305K)">22.0%</div>
+      <div class="nonpay-bar-segment seg-noresponse" style="width: 58.9%" title="No Response: 383 accounts ($1.43M)">58.9%</div>
       <div class="nonpay-bar-segment seg-unreachable" style="width: 9.5%" title="Unreachable: 62 accounts ($248K)"></div>
-      <div class="nonpay-bar-segment seg-cancelled" style="width: 6.8%" title="Cancelled: 44 accounts ($71K)"></div>
-      <div class="nonpay-bar-segment seg-disputed" style="width: 2.2%" title="Disputed: 14 accounts ($51K)"></div>
-      <div class="nonpay-bar-segment seg-inprogress" style="width: 1.4%" title="In Progress: 9 accounts ($37K)"></div>
+      <div class="nonpay-bar-segment seg-cancelled" style="width: 6.9%" title="Cancelled: 45 accounts ($72K)"></div>
+      <div class="nonpay-bar-segment seg-disputed" style="width: 1.8%" title="Disputed: 12 accounts ($48K)"></div>
+      <div class="nonpay-bar-segment seg-inprogress" style="width: 0.8%" title="In Progress: 5 accounts ($14K)"></div>
     </div>
     <div class="nonpay-bar-legend">
-      <div class="nonpay-legend-item"><div class="nonpay-legend-dot dot-recovered"></div> Recovered (138)</div>
+      <div class="nonpay-legend-item"><div class="nonpay-legend-dot dot-recovered"></div> Recovered (143)</div>
       <div class="nonpay-legend-item"><div class="nonpay-legend-dot dot-noresponse"></div> No Response (383)</div>
       <div class="nonpay-legend-item"><div class="nonpay-legend-dot dot-unreachable"></div> Unreachable (62)</div>
-      <div class="nonpay-legend-item"><div class="nonpay-legend-dot dot-cancelled"></div> Removed by Dell (44)</div>
-      <div class="nonpay-legend-item"><div class="nonpay-legend-dot dot-disputed"></div> Disputed (14)</div>
-      <div class="nonpay-legend-item"><div class="nonpay-legend-dot dot-inprogress"></div> In Progress (9)</div>
+      <div class="nonpay-legend-item"><div class="nonpay-legend-dot dot-cancelled"></div> Removed by Dell (45)</div>
+      <div class="nonpay-legend-item"><div class="nonpay-legend-dot dot-disputed"></div> Disputed (12)</div>
+      <div class="nonpay-legend-item"><div class="nonpay-legend-dot dot-inprogress"></div> In Progress (5)</div>
     </div>
   </div>
 
@@ -1891,20 +1953,20 @@
     </div>
 
     <div class="nonpay-card card-purple scroll-reveal">
-      <div class="nonpay-card-rank">#3 Reason — 2.7% of non-recovered</div>
+      <div class="nonpay-card-rank">#3 Reason — 2.4% of non-recovered</div>
       <div class="nonpay-card-title" style="color: var(--purple);">⚖️ Active Disputes</div>
       <div class="nonpay-card-stats">
         <div class="nonpay-stat">
-          <div class="nonpay-stat-value" style="color: var(--purple);">14</div>
+          <div class="nonpay-stat-value" style="color: var(--purple);">12</div>
           <div class="nonpay-stat-label">Accounts</div>
         </div>
         <div class="nonpay-stat">
-          <div class="nonpay-stat-value">$51K</div>
+          <div class="nonpay-stat-value">$48K</div>
           <div class="nonpay-stat-label">Amount</div>
         </div>
       </div>
       <div class="nonpay-card-detail">
-        Wrong amount, already paid, or service issues. <strong>61 of 69 disputes resolved</strong> (36 by AI). 8 remain open.
+        Wrong amount, already paid, or service issues. <strong>62 of 69 disputes resolved</strong> (36 by AI). 7 remain open.
       </div>
     </div>
   </div>
@@ -1919,7 +1981,7 @@
         <div class="debtor-reason-rank">#1 — 82% of responses</div>
         <div class="debtor-reason-pct" style="color: var(--orange)">82%</div>
         <div class="debtor-reason-name">"Need the invoice"</div>
-        <div class="debtor-reason-detail">Not disputing the debt — need documentation to process payment internally. Most resolved instantly by AI sending invoice links.</div>
+        <div class="debtor-reason-detail">Not disputing the debt — need documentation to process payment internally. Of the 53 who asked, only 23 received a PDF from Dell's team. The other 30 were directed to a self-service portal.</div>
         <div class="debtor-reason-b3">B3: 83%</div>
       </div>
       <div class="debtor-reason-card">
@@ -1942,7 +2004,7 @@
   <!-- Invoice Conversion Funnel -->
   <div class="invoice-funnel scroll-reveal">
     <div class="invoice-funnel-title">Invoice Request Outcomes — What Happens When Debtors Ask</div>
-    <div class="invoice-funnel-sub">55 debtors requested an invoice across all 3 batches. Here's what happened:</div>
+    <div class="invoice-funnel-sub">53 debtors requested an invoice across all 3 batches. Only 23 received the actual PDF from Dell's team. The other 30 were directed to a portal. Here's how outcomes differ:</div>
     <div class="funnel-bar">
       <div class="funnel-seg seg-paid" style="width: 36.4%" title="Paid: 20 accounts — $33.8K">36%</div>
       <div class="funnel-seg seg-ghost" style="width: 30.9%" title="No follow-through: 17 accounts — $22.2K">31%</div>
@@ -1959,11 +2021,29 @@
     </div>
   </div>
 
+  <!-- Two-Path Comparison -->
+  <div class="path-compare scroll-reveal">
+    <div class="path-box path-good">
+      <div class="path-box-tag">Got the actual invoice PDF</div>
+      <div class="path-box-pct">36%</div>
+      <div class="path-box-label">conversion to payment</div>
+      <div class="path-box-detail">Dell's team responded with the invoice PDF. Debtors forwarded it to AP, payment processed within days. <strong>This is the highest-converting debtor response in the portfolio.</strong></div>
+      <div class="path-box-count">23 debtors — $33.8K recovered</div>
+    </div>
+    <div class="path-box path-bad">
+      <div class="path-box-tag">Directed to self-service portal</div>
+      <div class="path-box-pct">0%</div>
+      <div class="path-box-label">conversion to payment</div>
+      <div class="path-box-detail">Without the actual PDF, debtors were told to find their invoice on dell.com. <strong>None of them followed through.</strong> AP departments need a PDF to process — a portal link is not actionable.</div>
+      <div class="path-box-count">30 debtors — $50.8K unrecovered</div>
+    </div>
+  </div>
+
   <div class="nonpay-insight scroll-reveal">
     <div class="nonpay-insight-icon">💡</div>
     <div class="nonpay-insight-text">
-      <strong>Root cause for the 31% drop-off:</strong> No invoice PDF was provided with the account data. Debtors were directed to a self-service portal instead of receiving the invoice directly. With invoice PDFs attached, we estimate <strong>50-70% of these would convert</strong> — an additional $11-15K per batch.<br><br>
-      <strong>36% of debtors who engage end up paying</strong> — the highest-converting response in the portfolio. With invoice PDFs provided upfront, our models project <strong>30-35% recovery</strong> on the next portfolio.
+      <strong>The data is clear:</strong> When debtors receive the actual invoice PDF, 36% pay. When they don't, 0% pay. 30 debtors across all 3 batches asked for an invoice and never received one — representing <strong>$50.8K in unrecovered revenue from engaged, willing-to-pay debtors.</strong><br><br>
+      <strong>This is the single highest-impact lever.</strong> Attaching invoice PDFs upfront enables instant AP processing — no portal navigation, no friction. With PDFs provided on every account, our models project <strong>30-35% recovery</strong> on the next portfolio.
     </div>
   </div>
 
@@ -2033,7 +2113,7 @@
         <div class="gap-impact-item">+$50-80K</div>
       </div>
       <div class="gap-card-detail">
-        <strong>82% of responding debtors need an invoice.</strong> Today: 0 out of 650 accounts have one attached. Debtors are sent to a portal — 31% drop off. Attaching the PDF enables instant AP processing. <em>Simple: shared folder or drag-and-drop upload — no integration required.</em>
+        <strong>82% of responding debtors need an invoice.</strong> When they get the PDF: 36% pay. When they don't: 0% pay. 30 debtors never received one — $50.8K stuck. <em>Fix: attach PDFs upfront or share via folder. No integration needed.</em>
       </div>
     </div>
     <div class="gap-card card-blue scroll-reveal">
@@ -2063,8 +2143,8 @@
   <div class="proposal-box scroll-reveal">
     <h3>The Trajectory</h3>
     <ul>
-      <li>Recovery rate: <strong>14.3% → 16.5% → 24.9%</strong> — improving every batch</li>
-      <li>Dollar recovery: <strong>$43K → $27K → $207K</strong> — 4.8x growth</li>
+      <li>Recovery rate: <strong>14.3% → 16.5% → 26.2%</strong> — improving every batch</li>
+      <li>Dollar recovery: <strong>$43K → $27K → $235K</strong> — 5.5x growth</li>
       <li>AI learns from every interaction — <strong>performance compounds over time</strong></li>
     </ul>
     <div class="proposal-footer">
@@ -2195,17 +2275,17 @@
     </div>
     <div class="summary-item">
       <div class="summary-item-label">Total Recovered</div>
-      <div class="summary-item-value" style="color: var(--accent)">$277K</div>
-      <div class="summary-item-sub">138 accounts</div>
+      <div class="summary-item-value" style="color: var(--accent)">$305K</div>
+      <div class="summary-item-sub">143 accounts</div>
     </div>
     <div class="summary-item">
       <div class="summary-item-label">Recovery Rate</div>
-      <div class="summary-item-value">21.2%</div>
+      <div class="summary-item-value">22.0%</div>
       <div class="summary-item-sub">by case count</div>
     </div>
     <div class="summary-item">
       <div class="summary-item-label">Net to Dell</div>
-      <div class="summary-item-value" style="color: var(--accent)">$195K</div>
+      <div class="summary-item-value" style="color: var(--accent)">$216K</div>
       <div class="summary-item-sub">after fees</div>
     </div>
     <div class="summary-item">
@@ -2247,36 +2327,36 @@
           <td>Amount Recovered</td>
           <td>$43,356</td>
           <td>$26,590</td>
-          <td>$206,699</td>
-          <td class="trend-up">↑ 4.8x</td>
+          <td>$235,310</td>
+          <td class="trend-up">↑ 5.5x</td>
         </tr>
         <tr>
           <td>Recovery Rate (Cases)</td>
           <td>14.3%</td>
           <td>16.5%</td>
-          <td>24.9%</td>
-          <td class="trend-up">↑ +74%</td>
+          <td>26.2%</td>
+          <td class="trend-up">↑ +83%</td>
         </tr>
         <tr>
           <td>Recovery Rate (Amount)</td>
           <td>7.1%</td>
           <td>6.7%</td>
-          <td>18.5%</td>
-          <td class="trend-up">↑ +161%</td>
+          <td>21.1%</td>
+          <td class="trend-up">↑ +197%</td>
         </tr>
         <tr>
           <td>Revenue (Respaid)</td>
           <td>$15,682</td>
           <td>$10,882</td>
-          <td>$55,297</td>
-          <td class="trend-up">↑ 3.5x</td>
+          <td>$62,947</td>
+          <td class="trend-up">↑ 4.0x</td>
         </tr>
         <tr>
           <td>Net to Dell</td>
           <td>$27,674</td>
           <td>$15,708</td>
-          <td>$151,402</td>
-          <td class="trend-up">↑ 5.5x</td>
+          <td>$172,363</td>
+          <td class="trend-up">↑ 6.2x</td>
         </tr>
         <tr>
           <td>AI Call Success Rate</td>
@@ -2302,8 +2382,8 @@
         <div class="bar-track"><div class="bar-fill purple" style="width: 13%">$27K</div></div>
       </div>
       <div class="bar-group">
-        <div class="bar-label"><span>Batch 3</span><span>$206,699</span></div>
-        <div class="bar-track"><div class="bar-fill green" style="width: 100%">$207K</div></div>
+        <div class="bar-label"><span>Batch 3</span><span>$235,310</span></div>
+        <div class="bar-track"><div class="bar-fill green" style="width: 100%">$235K</div></div>
       </div>
     </div>
 
@@ -2318,8 +2398,8 @@
         <div class="bar-track"><div class="bar-fill purple" style="width: 10%">$16K</div></div>
       </div>
       <div class="bar-group">
-        <div class="bar-label"><span>Batch 3</span><span>$151,402</span></div>
-        <div class="bar-track"><div class="bar-fill green" style="width: 100%">$151K</div></div>
+        <div class="bar-label"><span>Batch 3</span><span>$172,363</span></div>
+        <div class="bar-track"><div class="bar-fill green" style="width: 100%">$172K</div></div>
       </div>
     </div>
   </div>
@@ -2448,21 +2528,21 @@
         </tr>
         <tr class="highlight-row">
           <td>Batch 3</td>
-          <td>$1,115,590</td>
-          <td>$206,699</td>
-          <td>$55,297</td>
-          <td style="color: var(--accent); font-weight: 700">$151,402</td>
-          <td class="has-tooltip" data-tooltip="No upfront cost — $151.4K pure net gain on written-off receivables. ROI is infinite since Dell's cost basis is $0." style="color: var(--accent); font-weight: 700">∞</td>
+          <td>$1,115,821</td>
+          <td>$235,310</td>
+          <td>$62,947</td>
+          <td style="color: var(--accent); font-weight: 700">$172,363</td>
+          <td class="has-tooltip" data-tooltip="No upfront cost — $172K pure net gain on written-off receivables. ROI is infinite since Dell's cost basis is $0." style="color: var(--accent); font-weight: 700">∞</td>
           <td style="color: var(--accent); font-weight: 700">73.2%</td>
         </tr>
         <tr class="total-row">
           <td>Total</td>
-          <td>$2,121,325</td>
-          <td>$276,645</td>
-          <td>$81,861</td>
-          <td style="color: var(--accent)">$194,784</td>
+          <td>$2,121,556</td>
+          <td>$305,256</td>
+          <td>$89,511</td>
+          <td style="color: var(--accent)">$215,745</td>
           <td style="color: var(--accent)">∞</td>
-          <td style="color: var(--accent)">70.4%</td>
+          <td style="color: var(--accent)">70.7%</td>
         </tr>
       </tbody>
     </table>
