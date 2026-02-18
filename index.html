@@ -99,6 +99,14 @@ section {
 .color-purple { color: var(--purple); }
 .color-orange { color: var(--orange); }
 
+/* ====== SECTION ICONS ====== */
+.section-icon { margin: 0 auto 20px; line-height: 0; }
+.section-icon svg { width: 40px; height: 40px; }
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes pulse-icon { 0%,100% { opacity: 0.5; } 50% { opacity: 0.9; } }
+.icon-float { animation: float 4s ease-in-out infinite; }
+.icon-pulse { animation: pulse-icon 3s ease-in-out infinite; }
+
 /* ====== REVEAL ANIMATION ====== */
 .reveal {
   opacity: 0; transform: translateY(40px);
@@ -287,6 +295,9 @@ section {
 <section class="trajectory" id="s1">
   <div class="section-inner">
     <div class="reveal">
+      <div class="section-icon icon-float">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M6 32L16 18L24 24L34 8" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M28 8H34V14" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
       <div class="label" style="margin-bottom: 16px;">Recovery rate by batch</div>
       <div class="sublabel">Each batch, the AI learns from the previous results.<br>The improvement is compounding.</div>
     </div>
@@ -309,6 +320,9 @@ section {
 <section id="s2">
   <div class="section-inner">
     <div class="reveal">
+      <div class="section-icon icon-pulse">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M20 6V34M20 6L12 14M20 6L28 14" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 22H8C7 22 6 23 6 24V32C6 33 7 34 8 34H14C15 34 16 33 16 32V28" stroke="var(--accent)" stroke-width="1" opacity="0.3"/><path d="M30 22H32C33 22 34 23 34 24V32C34 33 33 34 32 34H26C25 34 24 33 24 32V28" stroke="var(--accent)" stroke-width="1" opacity="0.3"/></svg>
+      </div>
       <div class="label" style="margin-bottom: 24px;">Dollar recovery growth</div>
     </div>
     <div class="reveal reveal-delay-1">
@@ -335,6 +349,9 @@ section {
 <section style="background: var(--surface);" id="s3">
   <div class="section-inner">
     <div class="reveal">
+      <div class="section-icon icon-float">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="8" stroke="var(--blue)" stroke-width="1.5"/><circle cx="20" cy="20" r="3" stroke="var(--blue)" stroke-width="1.5"/><path d="M20 4V10M20 30V36M4 20H10M30 20H36M8.5 8.5L12.7 12.7M27.3 27.3L31.5 31.5M31.5 8.5L27.3 12.7M12.7 27.3L8.5 31.5" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/></svg>
+      </div>
       <div class="label" style="margin-bottom: 24px;">The machine behind the results</div>
       <div class="mega color-blue">4,900+</div>
       <div class="sublabel" style="margin-top: 12px;">Automated touchpoints across all 3 batches</div>
@@ -381,6 +398,9 @@ section {
 <section id="s4">
   <div class="section-inner">
     <div class="reveal">
+      <div class="section-icon icon-float">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="6" y="24" width="6" height="12" rx="2" stroke="var(--accent)" stroke-width="1.5" opacity="0.4"/><rect x="17" y="16" width="6" height="20" rx="2" stroke="var(--accent)" stroke-width="1.5" opacity="0.6"/><rect x="28" y="6" width="6" height="30" rx="2" stroke="var(--accent)" stroke-width="1.5" opacity="0.9"/></svg>
+      </div>
       <div class="label" style="margin-bottom: 24px;">Email engagement</div>
       <div class="mega color-accent">65.1%</div>
       <div class="sublabel" style="margin-top: 12px;">open rate — vs 15–25% industry average</div>
@@ -411,6 +431,9 @@ section {
 <section id="s5">
   <div class="section-inner">
     <div class="reveal">
+      <div class="section-icon icon-pulse">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="16" r="10" stroke="var(--orange)" stroke-width="1.5"/><path d="M16 26V30C16 31.1 16.9 32 18 32H22C23.1 32 24 31.1 24 30V26" stroke="var(--orange)" stroke-width="1.5"/><path d="M20 10V18M18 16L20 18L22 16" stroke="var(--orange)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/><line x1="16" y1="34" x2="24" y2="34" stroke="var(--orange)" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/></svg>
+      </div>
       <div class="label" style="margin-bottom: 24px;">What the data tells us</div>
       <div class="big" style="max-width: 800px; margin: 0 auto;">One pattern explains most of the gap.</div>
     </div>
