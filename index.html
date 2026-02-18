@@ -4,2717 +4,501 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Dell Technologies — Collection Performance Report</title>
+<title>Dell × Respaid — Performance Report</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23151823'/%3E%3Cpath d='M10 7h7.5c3 0 5.5 2.2 5.5 5.2 0 2.2-1.4 4-3.4 4.8l4.4 8h-4.5l-3.8-7H14v7h-4V7zm4 7.5h3.5c1.2 0 2.2-.9 2.2-2.1 0-1.2-1-2.2-2.2-2.1H14v4.2z' fill='white'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  :root {
-    --bg: #0a0a0f;
-    --surface: #111118;
-    --surface-2: #1a1a24;
-    --surface-3: #22222e;
-    --border: rgba(255,255,255,0.08);
-    --border-hover: rgba(255,255,255,0.15);
-    --text: #ffffff;
-    --text-secondary: rgba(255,255,255,0.55);
-    --text-tertiary: rgba(255,255,255,0.35);
-    --accent: #00C9A7;
-    --accent-bg: rgba(0,201,167,0.12);
-    --accent-border: rgba(0,201,167,0.25);
-    --blue: #4f8fff;
-    --blue-bg: rgba(79,143,255,0.12);
-    --purple: #a855f7;
-    --purple-bg: rgba(168,85,247,0.12);
-    --orange: #f59e0b;
-    --orange-bg: rgba(245,158,11,0.12);
-    --red: #ef4444;
-    --red-bg: rgba(239,68,68,0.12);
-    --green: #22c55e;
-    --green-bg: rgba(34,197,94,0.12);
-  }
-
-  body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    -webkit-font-smoothing: antialiased;
-    min-height: 100vh;
-  }
-
-  /* ============ HEADER ============ */
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 40px;
-    border-bottom: 1px solid var(--border);
-    background: var(--surface);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    backdrop-filter: blur(20px);
-  }
-
-  .header-left {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .logo {
-    font-size: 20px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-  }
-
-  .logo span { color: var(--accent); }
-
-  .header-badge {
-    font-size: 11px;
-    font-weight: 600;
-    background: var(--accent-bg);
-    color: var(--accent);
-    padding: 4px 12px;
-    border-radius: 20px;
-    border: 1px solid var(--accent-border);
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-  }
-
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .view-toggle {
-    display: flex;
-    background: var(--surface-2);
-    border-radius: 10px;
-    padding: 3px;
-    border: 1px solid var(--border);
-  }
-
-  .view-btn {
-    padding: 8px 20px;
-    border-radius: 8px;
-    border: none;
-    background: transparent;
-    color: var(--text-secondary);
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: inherit;
-  }
-
-  .view-btn.active {
-    background: var(--accent);
-    color: #000;
-    box-shadow: 0 2px 8px rgba(0,201,167,0.3);
-  }
-
-  .view-btn:hover:not(.active) {
-    color: var(--text);
-    background: var(--surface-3);
-  }
-
-  /* ============ OVERVIEW MODE ============ */
-  .overview-view, .advanced-view { padding: 40px; max-width: 1400px; margin: 0 auto; }
-  .advanced-view { display: none; }
-
-  /* Hero Stats */
-  .hero-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-bottom: 80px;
-  }
-
-  .hero-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 40px;
-    text-align: center;
-    transition: all 0.3s;
-  }
-
-  .hero-card:hover {
-    border-color: var(--border-hover);
-    transform: translateY(-2px);
-  }
-
-  .hero-card.highlight {
-    background: linear-gradient(135deg, rgba(0,201,167,0.08), rgba(0,201,167,0.02));
-    border-color: var(--accent-border);
-  }
-
-  .hero-label {
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: var(--text-tertiary);
-    margin-bottom: 12px;
-  }
-
-  .hero-value {
-    font-size: 52px;
-    font-weight: 900;
-    letter-spacing: -2px;
-    line-height: 1;
-    margin-bottom: 8px;
-  }
-
-  .hero-card.highlight .hero-value { color: var(--accent); }
-
-  .hero-sub {
-    font-size: 14px;
-    color: var(--text-secondary);
-    font-weight: 500;
-  }
-
-  .hero-sub strong { color: var(--accent); font-weight: 700; }
-
-  /* Section Headers */
-  .section-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 24px;
-    margin-top: 56px;
-  }
-
-  .section-header h2 {
-    font-size: 22px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-  }
-
-  .section-line {
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  .section-badge {
-    font-size: 11px;
-    font-weight: 700;
-    padding: 4px 12px;
-    border-radius: 20px;
-    letter-spacing: 0.5px;
-  }
-
-  .badge-green { background: var(--green-bg); color: var(--green); }
-  .badge-blue { background: var(--blue-bg); color: var(--blue); }
-  .badge-purple { background: var(--purple-bg); color: var(--purple); }
-  .badge-orange { background: var(--orange-bg); color: var(--orange); }
-
-  /* Story Cards Grid */
-  .story-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-bottom: 72px;
-  }
-
-  .story-grid.two-col {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .story-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 28px;
-    transition: all 0.3s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .story-card:hover {
-    border-color: var(--border-hover);
-    transform: translateY(-1px);
-  }
-
-  .story-card.wide {
-    grid-column: span 2;
-  }
-
-  .story-card.full {
-    grid-column: span 3;
-  }
-
-  .story-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    margin-bottom: 16px;
-  }
-
-  .story-icon.green { background: var(--green-bg); }
-  .story-icon.blue { background: var(--blue-bg); }
-  .story-icon.purple { background: var(--purple-bg); }
-  .story-icon.orange { background: var(--orange-bg); }
-  .story-icon.accent { background: var(--accent-bg); }
-
-  .story-card h3 {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text-secondary);
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .story-big-number {
-    font-size: 40px;
-    font-weight: 900;
-    letter-spacing: -1.5px;
-    line-height: 1.1;
-    margin-bottom: 6px;
-  }
-
-  .story-detail {
-    font-size: 14px;
-    color: var(--text-secondary);
-    line-height: 1.5;
-  }
-
-  .story-detail strong { color: var(--text); }
-
-  /* Evolution Arrow */
-  .evolution {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px solid var(--border);
-  }
-
-  .evo-from {
-    font-size: 16px;
-    color: var(--text-tertiary);
-    text-decoration: line-through;
-    font-weight: 600;
-  }
-
-  .evo-arrow {
-    font-size: 14px;
-    color: var(--text-tertiary);
-  }
-
-  .evo-to {
-    font-size: 18px;
-    font-weight: 800;
-    color: var(--accent);
-  }
-
-  .evo-badge {
-    font-size: 11px;
-    font-weight: 700;
-    background: var(--accent-bg);
-    color: var(--accent);
-    padding: 2px 8px;
-    border-radius: 10px;
-    margin-left: auto;
-  }
-
-  /* Batch Timeline */
-  .batch-timeline {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-    margin-bottom: 72px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    overflow: hidden;
-  }
-
-  .batch-col {
-    padding: 28px;
-    border-right: 1px solid var(--border);
-    position: relative;
-  }
-
-  .batch-col:last-child { border-right: none; }
-
-  .batch-col.best {
-    background: linear-gradient(180deg, rgba(0,201,167,0.06), transparent);
-  }
-
-  .batch-label {
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: var(--text-tertiary);
-    margin-bottom: 4px;
-  }
-
-  .batch-date {
-    font-size: 12px;
-    color: var(--text-tertiary);
-    margin-bottom: 16px;
-  }
-
-  .batch-stat {
-    margin-bottom: 14px;
-  }
-
-  .batch-stat-label {
-    font-size: 11px;
-    color: var(--text-tertiary);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 2px;
-  }
-
-  .batch-stat-value {
-    font-size: 22px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-  }
-
-  .batch-stat-value.green { color: var(--accent); }
-
-  .batch-best-badge {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    font-size: 10px;
-    font-weight: 700;
-    background: var(--accent);
-    color: #000;
-    padding: 3px 10px;
-    border-radius: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  /* Quote / Callout */
-  .callout {
-    background: linear-gradient(135deg, var(--surface), var(--surface-2));
-    border: 1px solid var(--accent-border);
-    border-radius: 16px;
-    padding: 32px;
-    margin-bottom: 72px;
-    text-align: center;
-  }
-
-  .callout-text {
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 1.6;
-    color: var(--text);
-    max-width: 700px;
-    margin: 0 auto;
-  }
-
-  .callout-text em {
-    color: var(--accent);
-    font-style: normal;
-    font-weight: 800;
-  }
-
-  /* ============ ADVANCED MODE ============ */
-
-  /* Summary Bar */
-  .summary-bar {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 16px;
-    margin-bottom: 32px;
-  }
-
-  .summary-item {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-    text-align: center;
-  }
-
-  .summary-item-label {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--text-tertiary);
-    margin-bottom: 6px;
-  }
-
-  .summary-item-value {
-    font-size: 26px;
-    font-weight: 900;
-    letter-spacing: -1px;
-  }
-
-  .summary-item-sub {
-    font-size: 12px;
-    color: var(--text-tertiary);
-    margin-top: 2px;
-  }
-
-  /* Data Tables */
-  .data-section {
-    margin-bottom: 40px;
-  }
-
-  .data-section h3 {
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .data-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: var(--surface);
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-  }
-
-  .data-table thead th {
-    background: var(--surface-2);
-    padding: 14px 16px;
-    text-align: left;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--text-tertiary);
-    border-bottom: 1px solid var(--border);
-    cursor: pointer;
-    user-select: none;
-    white-space: nowrap;
-  }
-
-  .data-table thead th:hover {
-    color: var(--text-secondary);
-  }
-
-  .data-table tbody td {
-    padding: 14px 16px;
-    font-size: 14px;
-    border-bottom: 1px solid var(--border);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .data-table tbody tr:last-child td { border-bottom: none; }
-
-  .data-table tbody tr:hover {
-    background: var(--surface-2);
-  }
-
-  .data-table .highlight-row {
-    background: rgba(0,201,167,0.04);
-  }
-
-  .data-table .highlight-row td {
-    font-weight: 600;
-  }
-
-  .data-table .total-row {
-    background: var(--surface-2);
-    font-weight: 700;
-  }
-
-  .data-table .total-row td {
-    border-top: 2px solid var(--border);
-    font-weight: 800;
-  }
-
-  .trend-up { color: var(--accent); }
-  .trend-down { color: var(--red); }
-  .trend-neutral { color: var(--text-tertiary); }
-
-  .inline-bar {
-    display: inline-block;
-    height: 6px;
-    border-radius: 3px;
-    background: var(--accent);
-    margin-left: 8px;
-    vertical-align: middle;
-    opacity: 0.6;
-  }
-
-  .status-badge {
-    font-size: 11px;
-    font-weight: 700;
-    padding: 3px 10px;
-    border-radius: 8px;
-    display: inline-block;
-  }
-
-  .status-badge.recovered { background: var(--green-bg); color: var(--green); }
-  .status-badge.active { background: var(--blue-bg); color: var(--blue); }
-  .status-badge.closed { background: var(--surface-3); color: var(--text-tertiary); }
-
-  /* Charts container in advanced */
-  .charts-row {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    margin-bottom: 40px;
-  }
-
-  .chart-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 24px;
-  }
-
-  .chart-card h3 {
-    font-size: 15px;
-    font-weight: 700;
-    margin-bottom: 20px;
-  }
-
-  /* Bar chart - CSS only */
-  .bar-group {
-    margin-bottom: 16px;
-  }
-
-  .bar-label {
-    font-size: 12px;
-    color: var(--text-secondary);
-    margin-bottom: 4px;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .bar-track {
-    height: 24px;
-    background: var(--surface-3);
-    border-radius: 6px;
-    overflow: hidden;
-    position: relative;
-  }
-
-  .bar-fill {
-    height: 100%;
-    border-radius: 6px;
-    transition: width 1s ease;
-    display: flex;
-    align-items: center;
-    padding-left: 8px;
-    font-size: 11px;
-    font-weight: 700;
-    color: rgba(0,0,0,0.7);
-    min-width: fit-content;
-  }
-
-  .bar-fill.green { background: linear-gradient(90deg, var(--accent), #00e6be); }
-  .bar-fill.blue { background: linear-gradient(90deg, var(--blue), #6fa8ff); }
-  .bar-fill.purple { background: linear-gradient(90deg, var(--purple), #c084fc); }
-  .bar-fill.orange { background: linear-gradient(90deg, var(--orange), #fbbf24); }
-
-  /* Metric Rows */
-  .metric-rows {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .metric-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 16px;
-    background: var(--surface-2);
-    border-radius: 10px;
-  }
-
-  .metric-row-label {
-    font-size: 13px;
-    color: var(--text-secondary);
-  }
-
-  .metric-row-value {
-    font-size: 15px;
-    font-weight: 700;
-  }
-
-  /* Footer */
-  .footer {
-    text-align: center;
-    padding: 32px 40px;
-    border-top: 1px solid var(--border);
-    color: var(--text-tertiary);
-    font-size: 12px;
-  }
-
-  .footer a {
-    color: var(--accent);
-    text-decoration: none;
-  }
-
-  /* Tooltips */
-  .has-tooltip {
-    position: relative;
-    cursor: help;
-    border-bottom: 1px dotted var(--text-tertiary);
-  }
-
-  .has-tooltip::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    bottom: calc(100% + 10px);
-    left: 50%;
-    transform: translateX(-50%) translateY(4px);
-    background: #1e1e2a;
-    color: var(--text-secondary);
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 1.5;
-    padding: 10px 14px;
-    border-radius: 10px;
-    border: 1px solid var(--border-hover);
-    white-space: normal;
-    width: max-content;
-    max-width: 300px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s, transform 0.2s;
-    z-index: 50;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-    letter-spacing: 0;
-    text-transform: none;
-  }
-
-  .has-tooltip::before {
-    content: '';
-    position: absolute;
-    bottom: calc(100% + 4px);
-    left: 50%;
-    transform: translateX(-50%);
-    border: 6px solid transparent;
-    border-top-color: #1e1e2a;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s;
-    z-index: 51;
-  }
-
-  .has-tooltip:hover::after,
-  .has-tooltip:hover::before {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-
-  .has-tooltip:hover::before {
-    transform: translateX(-50%);
-  }
-
-  /* Time saved badge in cards */
-  .time-saved {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    margin-top: 8px;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--purple);
-    background: var(--purple-bg);
-    padding: 4px 10px;
-    border-radius: 8px;
-  }
-
-  /* Scroll Animations */
-  .scroll-reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-
-  .scroll-reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Icon Animations */
-  @keyframes icon-float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-3px); }
-  }
-
-  @keyframes icon-pulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.06); opacity: 0.9; }
-  }
-
-  .story-icon.anim-float {
-    animation: icon-float 3.5s ease-in-out infinite;
-  }
-
-  .story-icon.anim-pulse {
-    animation: icon-pulse 2.8s ease-in-out infinite;
-  }
-
-  /* Summary callout bar */
-  .work-summary-bar {
-    background: linear-gradient(135deg, var(--surface), var(--surface-2));
-    border: 1px solid var(--purple-bg);
-    border-radius: 14px;
-    padding: 20px 28px;
-    margin-bottom: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 24px;
-    flex-wrap: wrap;
-  }
-
-  .work-summary-stat {
-    text-align: center;
-  }
-
-  .work-summary-stat .big {
-    font-size: 28px;
-    font-weight: 900;
-    letter-spacing: -1px;
-  }
-
-  .work-summary-stat .label {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--text-tertiary);
-    margin-top: 2px;
-  }
-
-  .work-summary-divider {
-    width: 1px;
-    height: 40px;
-    background: var(--border);
-  }
-
-  /* ============ PROGRESSION HERO ============ */
-  .progression-hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    position: relative;
-    padding: 40px 20px 80px;
-    margin: -40px -40px 60px -40px;
-    background: radial-gradient(ellipse at 50% 60%, rgba(0,201,167,0.06) 0%, transparent 70%);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .progression-eyebrow {
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    color: var(--accent);
-    margin-bottom: 16px;
-    opacity: 0;
-    animation: fadeSlideUp 0.8s ease 0.2s forwards;
-  }
-
-  .progression-headline {
-    font-size: 18px;
-    font-weight: 500;
-    color: var(--text-secondary);
-    margin-bottom: 32px;
-    max-width: 500px;
-    line-height: 1.5;
-    opacity: 0;
-    animation: fadeSlideUp 0.8s ease 0.4s forwards;
-  }
-
-  .progression-big-number {
-    font-size: 140px;
-    font-weight: 900;
-    letter-spacing: -6px;
-    line-height: 1;
-    color: var(--accent);
-    margin-bottom: 8px;
-    opacity: 0;
-    animation: fadeScaleIn 1s ease 0.6s forwards;
-    text-shadow: 0 0 80px rgba(0,201,167,0.3);
-  }
-
-  .progression-big-label {
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--text-secondary);
-    margin-bottom: 56px;
-    opacity: 0;
-    animation: fadeSlideUp 0.8s ease 0.8s forwards;
-  }
-
-  /* Progression Steps */
-  .progression-steps {
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    gap: 0;
-    opacity: 0;
-    animation: fadeSlideUp 0.8s ease 1s forwards;
-  }
-
-  .progression-step {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0 28px;
-    position: relative;
-  }
-
-  .progression-step-bar {
-    width: 80px;
-    border-radius: 8px 8px 0 0;
-    margin-bottom: 12px;
-    transition: height 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .progression-step.b1 .progression-step-bar {
-    height: 60px;
-    background: linear-gradient(180deg, var(--surface-3), var(--surface-2));
-    animation: barGrow 1s ease 1.3s both;
-  }
-
-  .progression-step.b2 .progression-step-bar {
-    height: 80px;
-    background: linear-gradient(180deg, var(--blue), rgba(79,143,255,0.4));
-    animation: barGrow 1s ease 1.5s both;
-  }
-
-  .progression-step.b3 .progression-step-bar {
-    height: 140px;
-    background: linear-gradient(180deg, var(--accent), rgba(0,201,167,0.4));
-    animation: barGrow 1s ease 1.7s both;
-    box-shadow: 0 0 30px rgba(0,201,167,0.2);
-  }
-
-  .progression-step-rate {
-    font-size: 22px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    margin-bottom: 4px;
-  }
-
-  .progression-step.b1 .progression-step-rate { color: var(--text-tertiary); }
-  .progression-step.b2 .progression-step-rate { color: var(--blue); }
-  .progression-step.b3 .progression-step-rate { color: var(--accent); font-size: 28px; }
-
-  .progression-step-label {
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--text-tertiary);
-    margin-bottom: 16px;
-  }
-
-  .progression-step.b3 .progression-step-label { color: var(--accent); }
-
-  /* Arrow between steps */
-  .progression-arrow {
-    font-size: 20px;
-    color: var(--text-tertiary);
-    margin: 0 -8px;
-    padding-bottom: 48px;
-    opacity: 0;
-    animation: fadeIn 0.5s ease 1.4s forwards;
-  }
-
-  .progression-arrow:last-of-type {
-    animation-delay: 1.6s;
-  }
-
-  /* Improvement badge */
-  .progression-improvement {
-    margin-top: 32px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    opacity: 0;
-    animation: fadeSlideUp 0.8s ease 2s forwards;
-  }
-
-  .progression-improvement-badge {
-    font-size: 16px;
-    font-weight: 800;
-    color: var(--accent);
-    background: var(--accent-bg);
-    border: 1px solid var(--accent-border);
-    padding: 8px 20px;
-    border-radius: 30px;
-  }
-
-  .progression-improvement-text {
-    font-size: 14px;
-    color: var(--text-secondary);
-  }
-
-  /* Scroll indicator */
-  .scroll-indicator {
-    position: absolute;
-    bottom: 28px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    opacity: 0;
-    animation: fadeIn 1s ease 2.5s forwards;
-  }
-
-  .scroll-indicator-text {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--text-tertiary);
-  }
-
-  .scroll-indicator-arrow {
-    font-size: 16px;
-    color: var(--text-tertiary);
-    animation: scrollBounce 2s ease-in-out infinite;
-  }
-
-  /* Animations */
-  @keyframes fadeSlideUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes fadeScaleIn {
-    from { opacity: 0; transform: scale(0.8); }
-    to { opacity: 1; transform: scale(1); }
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  @keyframes barGrow {
-    from { height: 0; }
-  }
-
-  @keyframes scrollBounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(6px); }
-  }
-
-  /* Responsive */
-  @media (max-width: 768px) {
-    .header { padding: 16px 20px; }
-    .overview-view, .advanced-view { padding: 20px; }
-    .hero-stats { grid-template-columns: 1fr; }
-    .hero-value { font-size: 38px; }
-    .story-grid { grid-template-columns: 1fr; }
-    .story-card.wide, .story-card.full { grid-column: span 1; }
-    .batch-timeline { grid-template-columns: 1fr; }
-    .batch-col { border-right: none; border-bottom: 1px solid var(--border); }
-    .summary-bar { grid-template-columns: repeat(2, 1fr); }
-    .charts-row { grid-template-columns: 1fr; }
-    .has-tooltip::after { left: 0; transform: translateX(0) translateY(4px); }
-    .has-tooltip:hover::after { transform: translateX(0) translateY(0); }
-    .has-tooltip::before { left: 20px; }
-    .work-summary-bar { flex-direction: column; gap: 12px; }
-    .work-summary-divider { width: 40px; height: 1px; }
-    /* Progression hero mobile */
-    .progression-hero { min-height: 90vh; padding: 30px 16px 60px; }
-    .progression-big-number { font-size: 80px; letter-spacing: -3px; }
-    .progression-big-label { font-size: 16px; margin-bottom: 36px; }
-    .progression-headline { font-size: 15px; }
-    .progression-step { padding: 0 14px; }
-    .progression-step-bar { width: 52px; }
-    .progression-step.b1 .progression-step-bar { height: 40px; }
-    .progression-step.b2 .progression-step-bar { height: 55px; }
-    .progression-step.b3 .progression-step-bar { height: 95px; }
-    .progression-step-rate { font-size: 17px; }
-    .progression-step.b3 .progression-step-rate { font-size: 21px; }
-    .progression-step-label { font-size: 10px; }
-    .progression-arrow { font-size: 16px; padding-bottom: 36px; }
-    .progression-improvement { flex-direction: column; gap: 6px; }
-    .nonpay-cards { grid-template-columns: 1fr; }
-    .debtor-reasons-grid { grid-template-columns: 1fr; }
-    .nonpay-bar-legend { flex-wrap: wrap; }
-  }
-
-  /* ============ NON-PAYMENT BREAKDOWN ============ */
-  .nonpay-bar-container {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 24px 28px;
-    margin-bottom: 20px;
-  }
-
-  .nonpay-bar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-  }
-
-  .nonpay-bar-title {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .nonpay-bar-total {
-    font-size: 13px;
-    color: var(--text-tertiary);
-  }
-
-  .nonpay-bar {
-    height: 32px;
-    border-radius: 8px;
-    overflow: hidden;
-    display: flex;
-    background: var(--surface-3);
-    margin-bottom: 16px;
-  }
-
-  .nonpay-bar-segment {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    font-weight: 700;
-    color: rgba(0,0,0,0.7);
-    transition: all 0.3s;
-    position: relative;
-  }
-
-  .nonpay-bar-segment:hover {
-    filter: brightness(1.15);
-  }
-
-  .nonpay-bar-segment.seg-recovered { background: var(--accent); }
-  .nonpay-bar-segment.seg-noresponse { background: #ef4444; }
-  .nonpay-bar-segment.seg-unreachable { background: var(--blue); }
-  .nonpay-bar-segment.seg-cancelled { background: var(--surface-3); color: var(--text-tertiary); border-right: 1px solid var(--border); }
-  .nonpay-bar-segment.seg-disputed { background: var(--purple); }
-  .nonpay-bar-segment.seg-inprogress { background: var(--orange); }
-
-  .nonpay-bar-legend {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-
-  .nonpay-legend-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 12px;
-    color: var(--text-secondary);
-  }
-
-  .nonpay-legend-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 3px;
-    flex-shrink: 0;
-  }
-
-  .nonpay-legend-dot.dot-recovered { background: var(--accent); }
-  .nonpay-legend-dot.dot-noresponse { background: #ef4444; }
-  .nonpay-legend-dot.dot-unreachable { background: var(--blue); }
-  .nonpay-legend-dot.dot-cancelled { background: var(--surface-3); border: 1px solid var(--border-hover); }
-  .nonpay-legend-dot.dot-disputed { background: var(--purple); }
-  .nonpay-legend-dot.dot-inprogress { background: var(--orange); }
-
-  .nonpay-cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-bottom: 24px;
-  }
-
-  .nonpay-card {
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 28px;
-    transition: all 0.3s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .nonpay-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    border-radius: 16px 16px 0 0;
-  }
-
-  .nonpay-card.card-red::before { background: #ef4444; }
-  .nonpay-card.card-blue::before { background: var(--blue); }
-  .nonpay-card.card-purple::before { background: var(--purple); }
-
-  .nonpay-card.card-red { background: linear-gradient(180deg, rgba(239,68,68,0.08) 0%, var(--surface-2) 40%); }
-  .nonpay-card.card-blue { background: linear-gradient(180deg, rgba(96,165,250,0.08) 0%, var(--surface-2) 40%); }
-  .nonpay-card.card-purple { background: linear-gradient(180deg, rgba(168,85,247,0.08) 0%, var(--surface-2) 40%); }
-
-  .nonpay-card:hover {
-    border-color: var(--border-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-  }
-
-  .nonpay-card-rank {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--text-tertiary);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 10px;
-  }
-
-  .nonpay-card-title {
-    font-size: 18px;
-    font-weight: 800;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .nonpay-card-stats {
-    display: flex;
-    gap: 24px;
-    margin-bottom: 16px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .nonpay-stat {
-    text-align: left;
-  }
-
-  .nonpay-stat-value {
-    font-size: 28px;
-    font-weight: 900;
-    letter-spacing: -1px;
-    line-height: 1.1;
-  }
-
-  .nonpay-stat-label {
-    font-size: 11px;
-    color: var(--text-tertiary);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-top: 2px;
-  }
-
-  .nonpay-card-detail {
-    font-size: 14px;
-    color: rgba(255,255,255,0.65);
-    line-height: 1.6;
-  }
-
-  .nonpay-card-detail strong {
-    color: rgba(255,255,255,0.95);
-    font-weight: 700;
-  }
-
-  .nonpay-insight {
-    background: linear-gradient(135deg, rgba(251,191,36,0.06), rgba(251,191,36,0.02));
-    border: 1px solid rgba(251,191,36,0.15);
-    border-left: 3px solid rgba(251,191,36,0.5);
-    border-radius: 12px;
-    padding: 24px 28px;
-    margin-bottom: 72px;
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-  }
-
-  .nonpay-insight-icon {
-    font-size: 20px;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-
-  .nonpay-insight-text {
-    font-size: 15px;
-    color: rgba(255,255,255,0.7);
-    line-height: 1.7;
-  }
-
-  .nonpay-insight-text strong {
-    color: rgba(255,255,255,0.95);
-  }
-
-  /* ============ DEBTOR REASONS ============ */
-  .debtor-reasons-section {
-    margin-bottom: 32px;
-  }
-
-  .debtor-reasons-header {
-    margin-bottom: 16px;
-  }
-
-  .debtor-reasons-title {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 4px;
-  }
-
-  .debtor-reasons-sub {
-    font-size: 12px;
-    color: var(--text-tertiary);
-  }
-
-  .debtor-reasons-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-  }
-
-  .debtor-reason-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px 24px;
-    transition: all 0.3s;
-  }
-
-  .debtor-reason-card:hover {
-    border-color: var(--border-hover);
-  }
-
-  .debtor-reason-rank {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--text-tertiary);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 8px;
-  }
-
-  .debtor-reason-pct {
-    font-size: 32px;
-    font-weight: 900;
-    letter-spacing: -1px;
-    line-height: 1.1;
-  }
-
-  .debtor-reason-name {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--text-secondary);
-    margin: 8px 0;
-    font-style: italic;
-  }
-
-  .debtor-reason-detail {
-    font-size: 13px;
-    color: var(--text-tertiary);
-    line-height: 1.5;
-    margin-bottom: 12px;
-  }
-
-  .debtor-reason-b3 {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--accent);
-    background: rgba(0,201,167,0.1);
-    padding: 4px 10px;
-    border-radius: 20px;
-    display: inline-block;
-  }
-
-  /* ============ PASSWORD GATE ============ */
-  .pw-overlay {
-    position: fixed; inset: 0; z-index: 9999;
-    background: rgba(10,10,15,0.97);
-    backdrop-filter: blur(30px);
-    display: flex; align-items: center; justify-content: center;
-    transition: opacity 0.4s;
-  }
-  .pw-overlay.hidden { opacity: 0; pointer-events: none; }
-  .pw-box {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 20px; padding: 48px 40px; text-align: center;
-    max-width: 420px; width: 90%;
-  }
-  .pw-box h2 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
-  .pw-box p { font-size: 13px; color: var(--text-tertiary); margin-bottom: 24px; }
-  .pw-input {
-    width: 100%; padding: 14px 18px; background: var(--surface-2);
-    border: 1px solid var(--border); border-radius: 10px; color: var(--text);
-    font-size: 15px; font-family: inherit; outline: none; margin-bottom: 12px;
-    transition: border-color 0.2s;
-  }
-  .pw-input:focus { border-color: var(--accent); }
-  .pw-input.error { border-color: var(--red); animation: shake 0.4s; }
-  .pw-btn {
-    width: 100%; padding: 14px; background: var(--accent); color: #000;
-    font-weight: 700; font-size: 14px; border: none; border-radius: 10px;
-    cursor: pointer; font-family: inherit; transition: opacity 0.2s;
-  }
-  .pw-btn:hover { opacity: 0.85; }
-  @keyframes shake {
-    0%,100% { transform: translateX(0); }
-    20%,60% { transform: translateX(-6px); }
-    40%,80% { transform: translateX(6px); }
-  }
-
-  /* ============ INVOICE FUNNEL ============ */
-  .invoice-funnel {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 14px; padding: 24px 28px; margin-bottom: 20px;
-  }
-  .invoice-funnel-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
-  .invoice-funnel-sub { font-size: 12px; color: var(--text-tertiary); margin-bottom: 16px; }
-  .funnel-bar {
-    height: 36px; border-radius: 8px; overflow: hidden;
-    display: flex; background: var(--surface-3); margin-bottom: 12px;
-  }
-  .funnel-seg {
-    height: 100%; display: flex; align-items: center; justify-content: center;
-    font-size: 11px; font-weight: 700; color: rgba(0,0,0,0.8);
-    transition: all 0.3s; cursor: default;
-  }
-  .funnel-seg:hover { filter: brightness(1.15); }
-  .funnel-seg.seg-paid { background: var(--accent); }
-  .funnel-seg.seg-ghost { background: #ef4444; }
-  .funnel-seg.seg-dispute { background: var(--purple); }
-  .funnel-seg.seg-cancel { background: var(--surface-3); color: var(--text-tertiary); }
-  .funnel-seg.seg-pending { background: var(--orange); }
-  .funnel-legend { display: flex; gap: 16px; flex-wrap: wrap; }
-  .funnel-legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-secondary); }
-  .funnel-legend-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
-
-  /* ============ AMOUNT TIERS ============ */
-  .amount-tiers {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 14px; padding: 24px 28px; margin-bottom: 20px;
-  }
-  .amount-tiers-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
-  .amount-tiers-sub { font-size: 12px; color: var(--text-tertiary); margin-bottom: 20px; }
-  .tier-row {
-    display: grid; grid-template-columns: 90px 1fr 60px 80px 110px;
-    align-items: center; gap: 12px; padding: 10px 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .tier-row:last-child { border-bottom: none; }
-  .tier-label { font-size: 13px; font-weight: 600; color: var(--text-secondary); }
-  .tier-bar-track { height: 22px; background: var(--surface-3); border-radius: 6px; overflow: hidden; }
-  .tier-bar-fill { height: 100%; border-radius: 6px; transition: width 0.8s ease; }
-  .tier-pct { font-size: 14px; font-weight: 800; text-align: right; }
-  .tier-ratio { font-size: 11px; color: var(--text-tertiary); text-align: right; }
-  .tier-unrec { font-size: 12px; font-weight: 600; text-align: right; }
-  .tier-row.sweet .tier-label { color: var(--accent); }
-  .tier-row.sweet .tier-pct { color: var(--accent); }
-  .tier-row.sweet .tier-bar-fill { background: var(--accent); }
-  .tier-row.danger .tier-label { color: var(--red); }
-  .tier-row.danger .tier-pct { color: var(--red); }
-  .tier-row.danger .tier-bar-fill { background: var(--red); }
-  .tier-row:not(.sweet):not(.danger) .tier-bar-fill { background: var(--blue); }
-  .tier-row:not(.sweet):not(.danger) .tier-pct { color: var(--blue); }
-  .tier-callout {
-    margin-top: 16px; padding: 14px 18px;
-    background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2);
-    border-left: 3px solid var(--red); border-radius: 8px;
-    font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.6;
-  }
-  .tier-callout strong { color: rgba(255,255,255,0.95); }
-
-  /* ============ CLOSING THE GAP ============ */
-  .gap-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 24px; }
-  .gap-card {
-    background: var(--surface-2); border: 1px solid var(--border);
-    border-radius: 16px; padding: 28px; position: relative;
-    overflow: hidden; transition: all 0.3s;
-  }
-  .gap-card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0;
-    height: 3px; border-radius: 16px 16px 0 0;
-  }
-  .gap-card.card-accent::before { background: var(--accent); }
-  .gap-card.card-blue::before { background: var(--blue); }
-  .gap-card.card-purple::before { background: var(--purple); }
-  .gap-card.card-accent { background: linear-gradient(180deg, rgba(0,201,167,0.08) 0%, var(--surface-2) 40%); }
-  .gap-card.card-blue { background: linear-gradient(180deg, rgba(79,143,255,0.08) 0%, var(--surface-2) 40%); }
-  .gap-card.card-purple { background: linear-gradient(180deg, rgba(168,85,247,0.08) 0%, var(--surface-2) 40%); }
-  .gap-card:hover { border-color: var(--border-hover); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
-  .gap-card-icon { font-size: 28px; margin-bottom: 12px; }
-  .gap-card-name { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
-  .gap-card-impact { display: flex; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
-  .gap-impact-item { font-size: 13px; font-weight: 700; padding: 4px 10px; border-radius: 8px; }
-  .gap-card.card-accent .gap-impact-item { background: var(--accent-bg); color: var(--accent); }
-  .gap-card.card-blue .gap-impact-item { background: var(--blue-bg); color: var(--blue); }
-  .gap-card.card-purple .gap-impact-item { background: var(--purple-bg); color: var(--purple); }
-  .gap-card-detail { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.6; }
-  .gap-card-detail strong { color: rgba(255,255,255,0.9); }
-
-  .proposal-box {
-    background: linear-gradient(135deg, rgba(0,201,167,0.08), rgba(0,201,167,0.03));
-    border: 1px solid var(--accent-border); border-left: 4px solid var(--accent);
-    border-radius: 14px; padding: 32px 36px; margin-bottom: 72px;
-  }
-  .proposal-box h3 { font-size: 17px; font-weight: 800; color: var(--accent); margin-bottom: 16px; }
-  .proposal-box ul { list-style: none; padding: 0; margin: 0 0 16px 0; }
-  .proposal-box ul li {
-    font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.8;
-    padding-left: 20px; position: relative;
-  }
-  .proposal-box ul li::before { content: '\2192'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
-  .proposal-box ul li strong { color: rgba(255,255,255,0.95); }
-  .proposal-footer { font-size: 13px; color: var(--text-tertiary); font-style: italic; margin-top: 12px; }
-
-  /* ============ AI STACK ============ */
-  .ai-stack {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 14px; padding: 24px 28px; margin-bottom: 20px;
-  }
-  .ai-stack-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 16px; }
-  .ai-stack-flow { display: flex; align-items: stretch; gap: 0; overflow-x: auto; }
-  .ai-stack-node {
-    flex: 1; min-width: 130px; background: var(--surface-2);
-    border: 1px solid var(--border); border-radius: 10px;
-    padding: 16px 12px; text-align: center; transition: all 0.3s;
-  }
-  .ai-stack-node:hover { border-color: var(--accent-border); transform: translateY(-2px); }
-  .ai-stack-node-icon { font-size: 22px; margin-bottom: 6px; }
-  .ai-stack-node-name { font-size: 11px; font-weight: 700; color: var(--text); margin-bottom: 8px; line-height: 1.3; }
-  .ai-stack-node-stat { font-size: 18px; font-weight: 900; color: var(--accent); letter-spacing: -0.5px; }
-  .ai-stack-node-detail { font-size: 10px; color: var(--text-tertiary); margin-top: 2px; }
-  .ai-stack-arrow { display: flex; align-items: center; font-size: 16px; color: var(--text-tertiary); padding: 0 6px; flex-shrink: 0; }
-  .ai-stack-footnote { font-size: 12px; color: var(--text-tertiary); margin-top: 14px; font-style: italic; line-height: 1.5; }
-
-  /* ============ TWO-PATH COMPARISON ============ */
-  .path-compare {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin: 20px 0 0;
-  }
-  .path-box {
-    border-radius: 12px;
-    padding: 20px 24px;
-    border: 1px solid var(--border);
-    position: relative;
-  }
-  .path-box.path-good {
-    background: rgba(0,201,167,0.06);
-    border-color: rgba(0,201,167,0.3);
-  }
-  .path-box.path-bad {
-    background: rgba(239,68,68,0.06);
-    border-color: rgba(239,68,68,0.3);
-  }
-  .path-box-tag {
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 8px;
-  }
-  .path-good .path-box-tag { color: var(--accent); }
-  .path-bad .path-box-tag { color: #ef4444; }
-  .path-box-pct {
-    font-size: 36px;
-    font-weight: 900;
-    letter-spacing: -1px;
-    line-height: 1.1;
-  }
-  .path-good .path-box-pct { color: var(--accent); }
-  .path-bad .path-box-pct { color: #ef4444; }
-  .path-box-label {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-secondary);
-    margin: 4px 0 10px;
-  }
-  .path-box-detail {
-    font-size: 12px;
-    color: var(--text-tertiary);
-    line-height: 1.5;
-  }
-  .path-box-detail strong { color: var(--text-secondary); }
-  .path-box-count {
-    font-size: 11px;
-    font-weight: 600;
-    margin-top: 10px;
-    padding: 4px 10px;
-    border-radius: 20px;
-    display: inline-block;
-  }
-  .path-good .path-box-count { color: var(--accent); background: rgba(0,201,167,0.1); }
-  .path-bad .path-box-count { color: #ef4444; background: rgba(239,68,68,0.1); }
-
-  @media (max-width: 768px) {
-    .gap-cards { grid-template-columns: 1fr; }
-    .tier-row { grid-template-columns: 70px 1fr 50px 60px 90px; gap: 8px; }
-    .ai-stack-flow { flex-direction: column; gap: 8px; }
-    .ai-stack-arrow { transform: rotate(90deg); justify-content: center; padding: 4px 0; }
-    .path-compare { grid-template-columns: 1fr; }
-  }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0a0a0f;
+  --surface: #12121a;
+  --border: rgba(255,255,255,0.06);
+  --text: #ffffff;
+  --text-dim: rgba(255,255,255,0.5);
+  --text-muted: rgba(255,255,255,0.3);
+  --accent: #00C9A7;
+  --accent-glow: rgba(0,201,167,0.15);
+  --blue: #4f8fff;
+  --purple: #a855f7;
+  --orange: #f59e0b;
+}
+
+html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+/* ====== TOP BAR ====== */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  padding: 20px 32px; display: flex; align-items: center; justify-content: space-between;
+  background: linear-gradient(180deg, var(--bg), transparent);
+  pointer-events: none;
+}
+.topbar > * { pointer-events: auto; }
+.topbar-logo {
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 20px; font-weight: 600;
+  color: var(--text); text-decoration: none; letter-spacing: -0.01em;
+  transition: opacity 0.2s;
+}
+.topbar-logo:hover { opacity: 0.7; }
+.topbar-client {
+  font-size: 13px; font-weight: 500; color: var(--text-muted);
+  letter-spacing: 0.05em; text-transform: uppercase;
+}
+
+/* ====== PASSWORD GATE ====== */
+.gate {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+.gate.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.gate-box { text-align: center; }
+.gate-logo { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 28px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+.gate-title { font-size: 14px; font-weight: 500; color: var(--text-dim); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 32px; }
+.gate-input {
+  width: 280px; padding: 14px 20px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 100px;
+  color: var(--text); font-size: 16px; font-family: inherit;
+  text-align: center; outline: none;
+  transition: border-color 0.2s;
+}
+.gate-input:focus { border-color: var(--accent); }
+.gate-input.error { border-color: #ef4444; animation: shake 0.4s; }
+@keyframes shake { 20%,60% { transform: translateX(-6px); } 40%,80% { transform: translateX(6px); } }
+
+/* ====== NAVIGATION ====== */
+.nav {
+  position: fixed; right: 24px; top: 50%; transform: translateY(-50%);
+  z-index: 100; display: flex; flex-direction: column; gap: 12px;
+}
+.nav-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: rgba(255,255,255,0.15); cursor: pointer;
+  transition: all 0.3s;
+}
+.nav-dot:hover { background: rgba(255,255,255,0.4); }
+.nav-dot.active { background: var(--accent); box-shadow: 0 0 12px var(--accent-glow); transform: scale(1.3); }
+
+/* ====== SECTIONS ====== */
+section {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  padding: 80px 60px; position: relative; scroll-snap-align: start;
+}
+.section-inner { max-width: 1100px; width: 100%; text-align: center; }
+
+/* ====== TYPOGRAPHY ====== */
+.mega { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(72px, 10vw, 140px); font-weight: 800; line-height: 1; letter-spacing: -0.03em; }
+.big { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(48px, 6vw, 80px); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; }
+.medium { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(28px, 3.5vw, 44px); font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; }
+.label { font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); }
+.sublabel { font-size: 18px; font-weight: 400; color: var(--text-dim); line-height: 1.6; max-width: 600px; margin: 0 auto; }
+.color-accent { color: var(--accent); }
+.color-blue { color: var(--blue); }
+.color-purple { color: var(--purple); }
+.color-orange { color: var(--orange); }
+
+/* ====== REVEAL ANIMATION ====== */
+.reveal {
+  opacity: 0; transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.15s; }
+.reveal-delay-2 { transition-delay: 0.3s; }
+.reveal-delay-3 { transition-delay: 0.45s; }
+
+/* ====== HERO ====== */
+.hero { position: relative; overflow: hidden; }
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 40%, var(--accent-glow), transparent 70%);
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 16px; border-radius: 100px;
+  background: rgba(0,201,167,0.08); border: 1px solid rgba(0,201,167,0.2);
+  font-size: 13px; font-weight: 600; color: var(--accent);
+  margin-bottom: 40px;
+}
+.hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse-dot 2s infinite; }
+@keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+/* ====== TRAJECTORY ====== */
+.trajectory { background: var(--surface); }
+.traj-steps { display: flex; align-items: center; justify-content: center; gap: 0; margin-top: 48px; }
+.traj-step { text-align: center; flex: 0 0 auto; }
+.traj-step-num { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(36px, 5vw, 64px); font-weight: 800; color: var(--text-muted); transition: color 0.3s; }
+.traj-step:last-child .traj-step-num { color: var(--accent); font-size: clamp(48px, 7vw, 88px); }
+.traj-step-label { font-size: 13px; color: var(--text-muted); margin-top: 8px; font-weight: 500; }
+.traj-step:last-child .traj-step-label { color: var(--accent); }
+.traj-arrow { font-size: 28px; color: var(--text-muted); margin: 0 clamp(16px, 3vw, 48px); opacity: 0.3; position: relative; top: -10px; }
+.traj-badge {
+  display: inline-block; margin-top: 32px;
+  padding: 6px 14px; border-radius: 100px;
+  background: rgba(0,201,167,0.1); border: 1px solid rgba(0,201,167,0.2);
+  font-size: 14px; font-weight: 700; color: var(--accent);
+}
+
+/* ====== STATS ROW ====== */
+.stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 64px; }
+.stat-card { background: var(--surface); padding: 48px 32px; border-radius: 0; text-align: center; position: relative; }
+.stat-card:first-child { border-radius: 16px 0 0 16px; }
+.stat-card:last-child { border-radius: 0 16px 16px 0; }
+.stat-card::after { content: ''; position: absolute; right: 0; top: 20%; height: 60%; width: 1px; background: var(--border); }
+.stat-card:last-child::after { display: none; }
+.stat-value { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(32px, 4vw, 52px); font-weight: 800; }
+.stat-label { font-size: 14px; color: var(--text-dim); margin-top: 8px; font-weight: 500; }
+
+/* ====== BUILD VS BUY ====== */
+.bvb-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 56px; text-align: left; }
+.bvb-card { padding: 48px 40px; border-radius: 20px; border: 1px solid var(--border); position: relative; overflow: hidden; }
+.bvb-card.build { background: linear-gradient(180deg, rgba(239,68,68,0.04), var(--surface)); border-color: rgba(239,68,68,0.15); }
+.bvb-card.buy { background: linear-gradient(180deg, rgba(0,201,167,0.06), var(--surface)); border-color: rgba(0,201,167,0.25); }
+.bvb-tag { display: inline-block; padding: 4px 12px; border-radius: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 24px; }
+.bvb-card.build .bvb-tag { background: rgba(239,68,68,0.1); color: #ef4444; }
+.bvb-card.buy .bvb-tag { background: rgba(0,201,167,0.1); color: var(--accent); }
+.bvb-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 28px; font-weight: 700; margin-bottom: 16px; }
+.bvb-card.build .bvb-title { color: rgba(255,255,255,0.6); }
+.bvb-list { list-style: none; padding: 0; }
+.bvb-list li { padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 15px; color: var(--text-dim); display: flex; align-items: center; gap: 12px; }
+.bvb-list li:last-child { border-bottom: none; }
+.bvb-icon { font-size: 16px; flex-shrink: 0; }
+.bvb-highlight { margin-top: 24px; padding: 20px 24px; border-radius: 12px; font-size: 15px; font-weight: 600; }
+.bvb-card.build .bvb-highlight { background: rgba(239,68,68,0.06); color: rgba(255,255,255,0.5); }
+.bvb-card.buy .bvb-highlight { background: rgba(0,201,167,0.08); color: var(--accent); }
+
+/* ====== WORK PERFORMED ====== */
+.work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 56px; text-align: center; }
+.work-card { padding: 40px 24px; border-radius: 16px; background: var(--surface); border: 1px solid var(--border); }
+.work-num { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 40px; font-weight: 800; margin-bottom: 8px; }
+.work-label { font-size: 14px; color: var(--text-dim); font-weight: 500; }
+.work-detail { font-size: 12px; color: var(--text-muted); margin-top: 12px; }
+
+/* ====== INSIGHT ====== */
+.insight-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 56px 48px; margin-top: 56px; text-align: left; max-width: 800px; margin-left: auto; margin-right: auto; }
+.insight-eyebrow { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; }
+.insight-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 24px; font-weight: 700; margin-bottom: 16px; line-height: 1.4; }
+.insight-text { font-size: 16px; color: var(--text-dim); line-height: 1.8; }
+.insight-stat { display: inline; font-weight: 700; color: var(--accent); }
+
+/* ====== CTA ====== */
+.cta-section { background: linear-gradient(180deg, var(--bg), var(--surface)); }
+.cta-line { font-size: 18px; color: var(--text-dim); margin-top: 24px; line-height: 1.6; }
+.cta-link {
+  display: inline-block; margin-top: 40px;
+  padding: 16px 40px; border-radius: 100px;
+  background: var(--accent); color: #000; font-weight: 700; font-size: 16px;
+  text-decoration: none; font-family: 'Inter', sans-serif;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.cta-link:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,201,167,0.3); }
+
+/* ====== FOOTER ====== */
+.footer { text-align: center; padding: 48px 60px 32px; }
+.footer-logo { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 600; color: var(--text-dim); margin-bottom: 8px; }
+.footer-logo a { color: var(--text-dim); text-decoration: none; }
+.footer-logo a:hover { color: var(--text); }
+.footer-sub { font-size: 13px; color: var(--text-muted); }
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 768px) {
+  section { padding: 60px 24px; }
+  .topbar { padding: 16px 20px; }
+  .nav { right: 12px; }
+  .stats-row { grid-template-columns: 1fr; gap: 1px; }
+  .stat-card { border-radius: 0 !important; }
+  .stat-card:first-child { border-radius: 16px 16px 0 0 !important; }
+  .stat-card:last-child { border-radius: 0 0 16px 16px !important; }
+  .stat-card::after { right: 20%; top: auto; bottom: 0; width: 60%; height: 1px; }
+  .bvb-grid { grid-template-columns: 1fr; }
+  .work-grid { grid-template-columns: 1fr; }
+  .traj-steps { flex-wrap: wrap; gap: 8px; }
+  .traj-arrow { margin: 0 12px; }
+  .insight-card { padding: 32px 24px; }
+  .dual-stats { flex-direction: column; gap: 32px !important; }
+  .dual-stats .divider { display: none; }
+  .bottom-stats { flex-direction: column; gap: 32px !important; }
+}
 </style>
 </head>
 <body>
 
-<!-- ============ PASSWORD GATE ============ -->
-<div class="pw-overlay" id="pw-overlay">
-  <div class="pw-box">
-    <h2>Confidential Report</h2>
-    <p>This report is prepared exclusively for Dell Technologies.<br>Enter password to continue.</p>
-    <input type="password" class="pw-input" id="pw-input" placeholder="Password" autocomplete="off">
-    <button class="pw-btn" id="pw-btn">Access Report</button>
+<!-- PASSWORD GATE -->
+<div class="gate" id="gate">
+  <div class="gate-box">
+    <div class="gate-logo">respaid</div>
+    <div class="gate-title">Dell × Respaid</div>
+    <input class="gate-input" id="gate-input" type="password" placeholder="Enter access code" autofocus>
   </div>
 </div>
 
-<!-- ============ HEADER ============ -->
-<div class="header">
-  <div class="header-left">
-    <div class="logo">respaid<span>.</span></div>
-    <div class="header-badge">Dell Technologies</div>
-  </div>
-  <div class="header-right">
-    <div class="view-toggle">
-      <button class="view-btn active" onclick="switchView('overview')">Overview</button>
-      <button class="view-btn" onclick="switchView('advanced')">Advanced</button>
-    </div>
-  </div>
+<!-- TOP BAR -->
+<div class="topbar">
+  <a href="https://respaid.com" target="_blank" class="topbar-logo">respaid</a>
+  <div class="topbar-client">Dell Performance Report</div>
 </div>
 
-<!-- ============ OVERVIEW MODE ============ -->
-<div class="overview-view" id="overview-view">
+<!-- NAVIGATION DOTS -->
+<nav class="nav" id="nav">
+  <div class="nav-dot active" data-section="0"></div>
+  <div class="nav-dot" data-section="1"></div>
+  <div class="nav-dot" data-section="2"></div>
+  <div class="nav-dot" data-section="3"></div>
+  <div class="nav-dot" data-section="4"></div>
+  <div class="nav-dot" data-section="5"></div>
+  <div class="nav-dot" data-section="6"></div>
+</nav>
 
-  <!-- ====== PROGRESSION HERO (Full Screen) ====== -->
-  <div class="progression-hero">
-    <div class="progression-eyebrow">Batch 3 Performance</div>
-    <div class="progression-headline">More than 1 in 4 accounts recovered.<br>Each batch performs better than the last.</div>
-
-    <div class="progression-big-number">26.7%</div>
-    <div class="progression-big-label">Case Recovery Rate — and improving</div>
-
-    <div class="progression-steps">
-      <div class="progression-step b1">
-        <div class="progression-step-rate">14.3%</div>
-        <div class="progression-step-bar"></div>
-        <div class="progression-step-label">Batch 1</div>
-      </div>
-      <div class="progression-arrow">→</div>
-      <div class="progression-step b2">
-        <div class="progression-step-rate">16.5%</div>
-        <div class="progression-step-bar"></div>
-        <div class="progression-step-label">Batch 2</div>
-      </div>
-      <div class="progression-arrow">→</div>
-      <div class="progression-step b3">
-        <div class="progression-step-rate">26.7%</div>
-        <div class="progression-step-bar"></div>
-        <div class="progression-step-label">Batch 3</div>
-      </div>
+<!-- 1. HERO -->
+<section class="hero" id="s0">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="hero-badge"><span class="hero-badge-dot"></span> Live data — updated daily</div>
     </div>
-
-    <div class="progression-improvement">
-      <span class="progression-improvement-badge">+87% improvement</span>
-      <span class="progression-improvement-text">from Batch 1 to Batch 3</span>
+    <div class="reveal reveal-delay-1">
+      <div class="mega color-accent">$310K</div>
     </div>
-
-    <div class="scroll-indicator">
-      <span class="scroll-indicator-text">Full report below</span>
-      <span class="scroll-indicator-arrow">↓</span>
+    <div class="reveal reveal-delay-2">
+      <div class="medium" style="margin-top: 16px; color: var(--text-dim); font-weight: 300;">recovered across 3 batches</div>
     </div>
-  </div>
-
-  <!-- Hero Stats -->
-  <div class="hero-stats">
-    <div class="hero-card highlight">
-      <div class="hero-label">Total Recovered</div>
-      <div class="hero-value has-tooltip" data-tooltip="Sum of all payments received across 3 batches: $43K (B1) + $27K (B2) + $240K (B3) = $310K gross recovered.">$310K</div>
-      <div class="hero-sub">across <span class="has-tooltip" data-tooltip="145 accounts out of 650 total = 22.0% case recovery rate.">145 accounts</span> — <strong>22.3% case rate</strong></div>
-    </div>
-    <div class="hero-card">
-      <div class="hero-label">Net to Dell</div>
-      <div class="hero-value has-tooltip" data-tooltip="$310K recovered − $91K Respaid fees = $219K net to Dell. No upfront cost — fees deducted from recoveries only.">$219K</div>
-      <div class="hero-sub">after all fees — <strong>your bottom line</strong></div>
-    </div>
-    <div class="hero-card">
-      <div class="hero-label">Total Placed</div>
-      <div class="hero-value has-tooltip" data-tooltip="$611K (B1, 140 accounts) + $394K (B2, 109 accounts) + $1.12M (B3, 401 accounts) = $2.12M total placed.">$2.12M</div>
-      <div class="hero-sub">650 accounts across <strong>3 batches</strong></div>
-    </div>
-  </div>
-
-  <!-- ====== BUILD vs BUY — The Executive Takeaway ====== -->
-  <div class="scroll-reveal" style="margin: 40px 0; padding: 0;">
-    <div style="background: linear-gradient(135deg, var(--surface-2) 0%, rgba(99,102,241,0.08) 100%); border: 1px solid var(--border); border-radius: 16px; padding: 36px 32px; position: relative; overflow: hidden;">
-      <div style="font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 20px;">The Real Question</div>
-      <div style="font-size: 22px; font-weight: 800; color: var(--text-primary); line-height: 1.4; margin-bottom: 28px;">
-        This report was produced by 5 AI systems working in parallel.<br>
-        <span style="color: var(--text-secondary); font-weight: 500;">Here's what it would take to replicate.</span>
-      </div>
-
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
-        <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px;">
-          <div style="font-size: 11px; font-weight: 700; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;">Build In-House</div>
-          <div style="font-size: 36px; font-weight: 900; color: var(--red); margin-bottom: 8px;">18–24 mo</div>
-          <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.6;">
-            ML engineers, telephony stack, compliance layer, training data from scratch.
-            <strong style="color: var(--text-tertiary);">5 separate AI systems</strong> to build, integrate, and maintain.
-          </div>
+    <div class="reveal reveal-delay-3">
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-value color-accent">145</div>
+          <div class="stat-label">Accounts recovered</div>
         </div>
-        <div style="background: rgba(99,102,241,0.1); border: 1px solid var(--accent-border); border-radius: 12px; padding: 24px;">
-          <div style="font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;">White-Label with Respaid</div>
-          <div style="font-size: 36px; font-weight: 900; color: var(--accent); margin-bottom: 8px;">2 weeks</div>
-          <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.6;">
-            All 5 systems deployed under your brand. Trained on <strong style="color: var(--text-primary);">your data from 650 accounts</strong>.
-            Your team focuses on what they do best.
-          </div>
+        <div class="stat-card">
+          <div class="stat-value">$219K</div>
+          <div class="stat-label">Net to Dell</div>
         </div>
-      </div>
-
-      <div style="font-size: 12px; color: var(--text-tertiary); text-align: center; padding-top: 8px; border-top: 1px solid var(--border);">
-        Email engine · Voice agent · Dispute resolution · Data enrichment · Scoring & routing — all production-ready, all learning from every interaction.
-      </div>
-    </div>
-  </div>
-
-  <!-- Learning & Progression -->
-  <div class="section-header">
-    <h2>Learning & Progression</h2>
-    <div class="section-line"></div>
-    <span class="section-badge badge-green">IMPROVING</span>
-  </div>
-
-  <div class="callout">
-    <div class="callout-text">
-      Each batch, our AI learns from the previous results.<br>
-      Batch 3 recovered <em>5.5x more</em> than Batch 1 — dollar recovery rate jumped <em>+203%</em>.
-    </div>
-  </div>
-
-  <!-- Batch Timeline -->
-  <div class="batch-timeline">
-    <div class="batch-col">
-      <div class="batch-label">Batch 1</div>
-      <div class="batch-date">Initial learning phase</div>
-      <div class="batch-stat">
-        <div class="batch-stat-label">Accounts</div>
-        <div class="batch-stat-value">140</div>
-      </div>
-      <div class="batch-stat">
-        <div class="batch-stat-label">Placed</div>
-        <div class="batch-stat-value">$611K</div>
-      </div>
-      <div class="batch-stat">
-        <div class="batch-stat-label">Recovered</div>
-        <div class="batch-stat-value green">$43K</div>
-      </div>
-      <div class="batch-stat">
-        <div class="batch-stat-label">Recovery Rate</div>
-        <div class="batch-stat-value">14.3%</div>
-      </div>
-      <div class="batch-stat">
-        <div class="batch-stat-label">Net to Dell</div>
-        <div class="batch-stat-value green">$27.7K</div>
-      </div>
-    </div>
-    <div class="batch-col">
-      <div class="batch-label">Batch 2</div>
-      <div class="batch-date">Calibration & refinement</div>
-      <div class="batch-stat">
-        <div class="batch-stat-label">Accounts</div>
-        <div class="batch-stat-value">109</div>
-      </div>
-      <div class="batch-stat">
-        <div class="batch-stat-label">Placed</div>
-        <div class="batch-stat-value">$394K</div>
-      </div>
-      <div class="batch-stat">
-        <div class="batch-stat-label">Recovered</div>
-        <div class="batch-stat-value green">$27K</div>
-      </div>
-      <div class="batch-stat">
-        <div class="batch-stat-label">Recovery Rate</div>
-        <div class="batch-stat-value">16.5%</div>
-      </div>
-      <div class="batch-stat">
-        <div class="batch-stat-label">Net to Dell</div>
-        <div class="batch-stat-value green">$15.7K</div>
-      </div>
-    </div>
-    <div class="batch-col best">
-      <div class="batch-best-badge">Best</div>
-      <div class="batch-label">Batch 3</div>
-      <div class="batch-date">Optimized performance</div>
-      <div class="batch-stat">
-        <div class="batch-stat-label">Accounts</div>
-        <div class="batch-stat-value">401</div>
-      </div>
-      <div class="batch-stat">
-        <div class="batch-stat-label">Placed</div>
-        <div class="batch-stat-value">$1.12M</div>
-      </div>
-      <div class="batch-stat">
-        <div class="batch-stat-label">Recovered</div>
-        <div class="batch-stat-value green">$240K</div>
-      </div>
-      <div class="batch-stat">
-        <div class="batch-stat-label">Recovery Rate</div>
-        <div class="batch-stat-value green">26.7%</div>
-      </div>
-      <div class="batch-stat">
-        <div class="batch-stat-label">Recovery Rate ($)</div>
-        <div class="batch-stat-value green">21.5%</div>
-      </div>
-      <div class="batch-stat">
-        <div class="batch-stat-label">Net to Dell</div>
-        <div class="batch-stat-value green">$176K</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Key Improvements -->
-  <div class="section-header">
-    <h2>Key Improvements</h2>
-    <div class="section-line"></div>
-    <span class="section-badge badge-blue">B1 → B3</span>
-  </div>
-
-  <div class="story-grid two-col">
-    <div class="story-card">
-      <div class="story-icon green">📈</div>
-      <h3>Recovery Rate (Cases)</h3>
-      <div class="story-big-number has-tooltip" data-tooltip="107 accounts recovered out of 401 placed in Batch 3 = 26.7% case recovery rate." style="color: var(--accent)">26.7%</div>
-      <div class="story-detail">Highest case recovery rate — Batch 3</div>
-      <div class="evolution">
-        <span class="evo-from">14.3%</span>
-        <span class="evo-arrow">→</span>
-        <span class="evo-to">26.7%</span>
-        <span class="evo-badge">+87%</span>
-      </div>
-    </div>
-
-    <div class="story-card">
-      <div class="story-icon green">💵</div>
-      <h3>Recovery Rate ($)</h3>
-      <div class="story-big-number has-tooltip" data-tooltip="$239,701 recovered ÷ $1,115,821 placed in Batch 3 = 21.1%. Grew from 7.1% in B1 — strongest improvement across all metrics." style="color: var(--accent)">21.5%</div>
-      <div class="story-detail">Dollar recovery rate — <strong>fastest-growing metric</strong></div>
-      <div class="evolution">
-        <span class="evo-from">7.1%</span>
-        <span class="evo-arrow">→</span>
-        <span class="evo-to">21.5%</span>
-        <span class="evo-badge">+203%</span>
-      </div>
-    </div>
-
-    <div class="story-card">
-      <div class="story-icon blue">💰</div>
-      <h3>$ Recovered per Batch</h3>
-      <div class="story-big-number" style="color: var(--blue)">$240K</div>
-      <div class="story-detail">Batch 3 recovered <strong>5.5x more</strong> than Batch 1</div>
-      <div class="evolution">
-        <span class="evo-from">$43K</span>
-        <span class="evo-arrow">→</span>
-        <span class="evo-to">$240K</span>
-        <span class="evo-badge">+453%</span>
-      </div>
-    </div>
-
-    <div class="story-card">
-      <div class="story-icon purple">🤖</div>
-      <h3>AI Voice Success</h3>
-      <div class="story-big-number" style="color: var(--purple)">17.2%</div>
-      <div class="story-detail">AI call connection rate in Batch 3</div>
-      <div class="evolution">
-        <span class="evo-from">6.5%</span>
-        <span class="evo-arrow">→</span>
-        <span class="evo-to">17.2%</span>
-        <span class="evo-badge">+165%</span>
-      </div>
-    </div>
-
-    <div class="story-card">
-      <div class="story-icon orange">📧</div>
-      <h3>Email Performance</h3>
-      <div class="story-big-number has-tooltip" data-tooltip="64% unique open rate = ~2,430 unique opens out of ~3,800 emails sent. 12,408 total opens including re-reads (avg 3.3 opens per email). Industry avg: 15-25%." style="color: var(--orange)">64%</div>
-      <div class="story-detail">Open rate — <strong>3x industry average</strong> (15-25%)</div>
-      <div class="evolution">
-        <span class="evo-from">Industry 20%</span>
-        <span class="evo-arrow">→</span>
-        <span class="evo-to">64%</span>
-        <span class="evo-badge">3x</span>
-      </div>
-    </div>
-
-    <div class="story-card">
-      <div class="story-icon accent">🔍</div>
-      <h3>AI Data Enrichment</h3>
-      <div class="story-big-number has-tooltip" data-tooltip="Our AI scanned company websites, LinkedIn, and public databases to find additional decision-makers (AP managers, controllers, billing contacts) at debtor companies where the original contact was unresponsive." style="color: var(--accent)">305</div>
-      <div class="story-detail">Additional contacts found by AI, worth <strong class="has-tooltip" data-tooltip="$955K = total outstanding debt across the accounts where these 305 new contacts were found. These were previously unreachable — now targeted with personalized outreach.">$955K</strong></div>
-    </div>
-
-    <div class="story-card wide">
-      <div class="story-icon green">⚖️</div>
-      <h3>Dispute Resolution</h3>
-      <div class="story-big-number has-tooltip" data-tooltip="69 debtors filed disputes (wrong amount, already paid, not their debt, etc.). 63 resolved, 7 still open." style="color: var(--green)">69</div>
-      <div class="story-detail">Disputes resolved — <strong class="has-tooltip" data-tooltip="36 disputes were handled entirely by AI: verifying payment proof, cross-referencing records, and auto-closing resolved cases. 26 required human review.">36 by AI</strong> automatically</div>
-    </div>
-  </div>
-
-  <!-- Why Some Accounts Don't Pay -->
-  <div class="section-header">
-    <h2>Why Some Accounts Don't Pay</h2>
-    <div class="section-line"></div>
-    <span class="section-badge badge-orange">TRANSPARENCY</span>
-  </div>
-
-  <div class="nonpay-bar-container scroll-reveal">
-    <div class="nonpay-bar-header">
-      <div class="nonpay-bar-title">All 650 Accounts — Status Breakdown</div>
-      <div class="nonpay-bar-total">$2.12M total placed</div>
-    </div>
-    <div class="nonpay-bar">
-      <div class="nonpay-bar-segment seg-recovered" style="width: 22.3%" title="Recovered: 145 accounts ($310K)">22.3%</div>
-      <div class="nonpay-bar-segment seg-noresponse" style="width: 58.9%" title="No Response: 383 accounts ($1.43M)">58.9%</div>
-      <div class="nonpay-bar-segment seg-unreachable" style="width: 9.5%" title="Unreachable: 62 accounts ($248K)"></div>
-      <div class="nonpay-bar-segment seg-cancelled" style="width: 6.9%" title="Cancelled: 47 accounts ($72K)"></div>
-      <div class="nonpay-bar-segment seg-disputed" style="width: 1.8%" title="Disputed: 13 accounts ($48K)"></div>
-      <div class="nonpay-bar-segment seg-inprogress" style="width: 0.8%" title="In Progress: 7 accounts ($14K)"></div>
-    </div>
-    <div class="nonpay-bar-legend">
-      <div class="nonpay-legend-item"><div class="nonpay-legend-dot dot-recovered"></div> Recovered (145)</div>
-      <div class="nonpay-legend-item"><div class="nonpay-legend-dot dot-noresponse"></div> No Response (383)</div>
-      <div class="nonpay-legend-item"><div class="nonpay-legend-dot dot-unreachable"></div> Unreachable (62)</div>
-      <div class="nonpay-legend-item"><div class="nonpay-legend-dot dot-cancelled"></div> Removed by Dell (47)</div>
-      <div class="nonpay-legend-item"><div class="nonpay-legend-dot dot-disputed"></div> Disputed (13)</div>
-      <div class="nonpay-legend-item"><div class="nonpay-legend-dot dot-inprogress"></div> In Progress (7)</div>
-    </div>
-  </div>
-
-  <div class="nonpay-cards">
-    <div class="nonpay-card card-red scroll-reveal">
-      <div class="nonpay-card-rank">#1 Reason — 74.8% of non-recovered</div>
-      <div class="nonpay-card-title" style="color: #ef4444;">🚫 Deliberate Non-Response</div>
-      <div class="nonpay-card-stats">
-        <div class="nonpay-stat">
-          <div class="nonpay-stat-value" style="color: #ef4444;">383</div>
-          <div class="nonpay-stat-label">Accounts</div>
-        </div>
-        <div class="nonpay-stat">
-          <div class="nonpay-stat-value">$1.44M</div>
-          <div class="nonpay-stat-label">Amount</div>
-        </div>
-      </div>
-      <div class="nonpay-card-detail">
-        Full outreach completed. 64% email open rate confirms delivery — these debtors are <strong>aware but choosing not to pay</strong>.
-      </div>
-    </div>
-
-    <div class="nonpay-card card-blue scroll-reveal">
-      <div class="nonpay-card-rank">#2 Reason — 12.1% of non-recovered</div>
-      <div class="nonpay-card-title" style="color: var(--blue);">📭 Unreachable Contacts</div>
-      <div class="nonpay-card-stats">
-        <div class="nonpay-stat">
-          <div class="nonpay-stat-value" style="color: var(--blue);">62</div>
-          <div class="nonpay-stat-label">Accounts</div>
-        </div>
-        <div class="nonpay-stat">
-          <div class="nonpay-stat-value">$248K</div>
-          <div class="nonpay-stat-label">Amount</div>
-        </div>
-      </div>
-      <div class="nonpay-card-detail">
-        Outdated contacts or closed businesses. AI enrichment found <strong>305 new contacts</strong> — unreachable rate: <strong>11.4% (B1) → 8.7% (B3)</strong>.
-      </div>
-    </div>
-
-    <div class="nonpay-card card-purple scroll-reveal">
-      <div class="nonpay-card-rank">#3 Reason — 2.4% of non-recovered</div>
-      <div class="nonpay-card-title" style="color: var(--purple);">⚖️ Active Disputes</div>
-      <div class="nonpay-card-stats">
-        <div class="nonpay-stat">
-          <div class="nonpay-stat-value" style="color: var(--purple);">12</div>
-          <div class="nonpay-stat-label">Accounts</div>
-        </div>
-        <div class="nonpay-stat">
-          <div class="nonpay-stat-value">$48K</div>
-          <div class="nonpay-stat-label">Amount</div>
-        </div>
-      </div>
-      <div class="nonpay-card-detail">
-        Wrong amount, already paid, or service issues. <strong>63 of 70 disputes resolved</strong> (36 by AI). 7 remain open.
-      </div>
-    </div>
-  </div>
-
-  <div class="debtor-reasons-section scroll-reveal">
-    <div class="debtor-reasons-header">
-      <div class="debtor-reasons-title">When Debtors Do Respond — Top 3 Reasons Given</div>
-      <div class="debtor-reasons-sub">Based on 79 responses from 69 debtors who filed disputes across all 3 batches</div>
-    </div>
-    <div class="debtor-reasons-grid">
-      <div class="debtor-reason-card">
-        <div class="debtor-reason-rank">#1 — 82% of responses</div>
-        <div class="debtor-reason-pct" style="color: var(--orange)">82%</div>
-        <div class="debtor-reason-name">"Need the invoice"</div>
-        <div class="debtor-reason-detail">Not disputing the debt — need documentation to process payment internally. Of the 53 who asked, only 23 received a PDF from Dell's team. The other 30 were directed to a self-service portal.</div>
-        <div class="debtor-reason-b3">B3: 83%</div>
-      </div>
-      <div class="debtor-reason-card">
-        <div class="debtor-reason-rank">#2 — 12% of responses</div>
-        <div class="debtor-reason-pct" style="color: var(--blue)">12%</div>
-        <div class="debtor-reason-name">"Billing dispute with Dell"</div>
-        <div class="debtor-reason-detail">Wrong item shipped, service cancelled, duplicate invoice, or credits owed by Dell. Requires Dell-side investigation.</div>
-        <div class="debtor-reason-b3">B3: 10%</div>
-      </div>
-      <div class="debtor-reason-card">
-        <div class="debtor-reason-rank">#3 — 6% of responses</div>
-        <div class="debtor-reason-pct" style="color: var(--purple)">6%</div>
-        <div class="debtor-reason-name">"Already paid"</div>
-        <div class="debtor-reason-detail">Claim prior payment via check or bank transfer. Proof of payment requested and verified automatically.</div>
-        <div class="debtor-reason-b3">B3: 7%</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Invoice Conversion Funnel -->
-  <div class="invoice-funnel scroll-reveal">
-    <div class="invoice-funnel-title">Invoice Request Outcomes — What Happens When Debtors Ask</div>
-    <div class="invoice-funnel-sub">53 debtors requested an invoice across all 3 batches. Only 23 received the actual PDF from Dell's team. The other 30 were directed to a portal. Here's how outcomes differ:</div>
-    <div class="funnel-bar">
-      <div class="funnel-seg seg-paid" style="width: 36.4%" title="Paid: 20 accounts — $33.8K">36%</div>
-      <div class="funnel-seg seg-ghost" style="width: 30.9%" title="No follow-through: 17 accounts — $22.2K">31%</div>
-      <div class="funnel-seg seg-dispute" style="width: 16.4%" title="Disputed after: 9 accounts — $12.2K">16%</div>
-      <div class="funnel-seg seg-cancel" style="width: 9.1%" title="Cancelled by Dell: 5 accounts — $9.7K">9%</div>
-      <div class="funnel-seg seg-pending" style="width: 7.3%" title="Still pending: 4 accounts — $6.0K"></div>
-    </div>
-    <div class="funnel-legend">
-      <div class="funnel-legend-item"><div class="funnel-legend-dot" style="background: var(--accent)"></div> Paid — $33.8K (36%)</div>
-      <div class="funnel-legend-item"><div class="funnel-legend-dot" style="background: #ef4444"></div> No follow-through — $22.2K (31%)</div>
-      <div class="funnel-legend-item"><div class="funnel-legend-dot" style="background: var(--purple)"></div> Disputed after — $12.2K (16%)</div>
-      <div class="funnel-legend-item"><div class="funnel-legend-dot" style="background: var(--surface-3)"></div> Cancelled by Dell — $9.7K (9%)</div>
-      <div class="funnel-legend-item"><div class="funnel-legend-dot" style="background: var(--orange)"></div> Still pending — $6.0K (7%)</div>
-    </div>
-  </div>
-
-  <!-- Two-Path Comparison -->
-  <div class="path-compare scroll-reveal">
-    <div class="path-box path-good">
-      <div class="path-box-tag">Got the actual invoice PDF</div>
-      <div class="path-box-pct">36%</div>
-      <div class="path-box-label">conversion to payment</div>
-      <div class="path-box-detail">Dell's team responded with the invoice PDF. Debtors forwarded it to AP, payment processed within days. <strong>This is the highest-converting debtor response in the portfolio.</strong></div>
-      <div class="path-box-count">23 debtors — $33.8K recovered</div>
-    </div>
-    <div class="path-box path-bad">
-      <div class="path-box-tag">Directed to self-service portal</div>
-      <div class="path-box-pct">0%</div>
-      <div class="path-box-label">conversion to payment</div>
-      <div class="path-box-detail">Without the actual PDF, debtors were told to find their invoice on dell.com. <strong>None of them followed through.</strong> AP departments need a PDF to process — a portal link is not actionable.</div>
-      <div class="path-box-count">30 debtors — $50.8K unrecovered</div>
-    </div>
-  </div>
-
-  <div class="nonpay-insight scroll-reveal">
-    <div class="nonpay-insight-icon">💡</div>
-    <div class="nonpay-insight-text">
-      <strong>The data is clear:</strong> When debtors receive the actual invoice PDF, 36% pay. When they don't, 0% pay. 30 debtors across all 3 batches asked for an invoice and never received one — representing <strong>$50.8K in unrecovered revenue from engaged, willing-to-pay debtors.</strong><br><br>
-      <strong>This is the single highest-impact lever.</strong> Attaching invoice PDFs upfront enables instant AP processing — no portal navigation, no friction. With PDFs provided on every account, our models project <strong>30-35% recovery</strong> on the next portfolio.
-    </div>
-  </div>
-
-  <!-- Recovery by Amount Tier -->
-  <div class="amount-tiers scroll-reveal">
-    <div class="amount-tiers-title">Recovery Rate by Account Size</div>
-    <div class="amount-tiers-sub">Where the money is — and where the biggest opportunity lies</div>
-    <div class="tier-row">
-      <div class="tier-label">&lt;$500</div>
-      <div class="tier-bar-track"><div class="tier-bar-fill" style="width: 70%"></div></div>
-      <div class="tier-pct">18.1%</div>
-      <div class="tier-ratio">29/160</div>
-      <div class="tier-unrec" style="color: var(--text-tertiary)">$29K unrec.</div>
-    </div>
-    <div class="tier-row sweet">
-      <div class="tier-label">$500-2K</div>
-      <div class="tier-bar-track"><div class="tier-bar-fill" style="width: 100%"></div></div>
-      <div class="tier-pct">25.8%</div>
-      <div class="tier-ratio">72/279</div>
-      <div class="tier-unrec" style="color: var(--accent)">$179K unrec.</div>
-    </div>
-    <div class="tier-row">
-      <div class="tier-label">$2K-5K</div>
-      <div class="tier-bar-track"><div class="tier-bar-fill" style="width: 75%"></div></div>
-      <div class="tier-pct">19.5%</div>
-      <div class="tier-ratio">26/133</div>
-      <div class="tier-unrec" style="color: var(--text-tertiary)">$254K unrec.</div>
-    </div>
-    <div class="tier-row">
-      <div class="tier-label">$5K-10K</div>
-      <div class="tier-bar-track"><div class="tier-bar-fill" style="width: 77%"></div></div>
-      <div class="tier-pct">20.0%</div>
-      <div class="tier-ratio">10/50</div>
-      <div class="tier-unrec" style="color: var(--text-tertiary)">$227K unrec.</div>
-    </div>
-    <div class="tier-row danger">
-      <div class="tier-label">$10K+</div>
-      <div class="tier-bar-track"><div class="tier-bar-fill" style="width: 14%"></div></div>
-      <div class="tier-pct">3.6%</div>
-      <div class="tier-ratio">1/28</div>
-      <div class="tier-unrec" style="color: var(--red)">$747K unrec.</div>
-    </div>
-    <div class="tier-callout">
-      <strong>$10K+ accounts represent 35% of all unrecovered dollars</strong> but only 4% of accounts. 28 accounts worth $748K sitting at 3.6% recovery. Industry data shows these larger accounts respond better when preceded by a brief creditor introduction.
-    </div>
-  </div>
-
-  <!-- Closing the Gap -->
-  <div class="section-header">
-    <h2>What the Data Tells Us</h2>
-    <div class="section-line"></div>
-    <span class="section-badge badge-green">INSIGHTS</span>
-  </div>
-
-  <div class="callout">
-    <div class="callout-text">
-      Three patterns emerged from analyzing 650 accounts across 3 batches. Each represents untapped potential in the existing pipeline.
-    </div>
-  </div>
-
-  <div class="gap-cards">
-    <div class="gap-card card-accent scroll-reveal">
-      <div class="gap-card-icon">📄</div>
-      <div class="gap-card-name">Invoice PDFs</div>
-      <div class="gap-card-impact">
-        <div class="gap-impact-item">+3-4% recovery</div>
-        <div class="gap-impact-item">+$50-80K</div>
-      </div>
-      <div class="gap-card-detail">
-        <strong>82% of responding debtors need an invoice.</strong> When they get the PDF: 36% pay. When they don't: 0% pay. 30 debtors never received one — $50.8K stuck. <em>Fix: attach PDFs upfront or share via folder. No integration needed.</em>
-      </div>
-    </div>
-    <div class="gap-card card-blue scroll-reveal">
-      <div class="gap-card-icon">📊</div>
-      <div class="gap-card-name">Contact Data Quality</div>
-      <div class="gap-card-impact">
-        <div class="gap-impact-item">+1-2% recovery</div>
-        <div class="gap-impact-item">+$25-50K</div>
-      </div>
-      <div class="gap-card-detail">
-        <strong>62 unreachable contacts (9.5%) + 44 cancelled mid-campaign (6.8%) = 16.3% of accounts not actionable.</strong> Pre-validated contacts eliminate waste and let the AI focus on reachable decision-makers.
-      </div>
-    </div>
-    <div class="gap-card card-purple scroll-reveal">
-      <div class="gap-card-icon">📬</div>
-      <div class="gap-card-name">Creditor Intro for $10K+</div>
-      <div class="gap-card-impact">
-        <div class="gap-impact-item">+3-5% recovery</div>
-        <div class="gap-impact-item">+$50-100K</div>
-      </div>
-      <div class="gap-card-detail">
-        <strong>28 accounts worth $748K at 3.6% recovery.</strong> Dell sends a brief introduction email endorsing the collection partner, then Respaid follows up. Industry data: creditor-endorsed outreach converts 10-15% of email non-responders in this tier.
-      </div>
-    </div>
-  </div>
-
-  <div class="proposal-box scroll-reveal">
-    <h3>The Trajectory</h3>
-    <ul>
-      <li>Recovery rate: <strong>14.3% → 16.5% → 26.7%</strong> — improving every batch</li>
-      <li>Dollar recovery: <strong>$43K → $27K → $240K</strong> — 5.5x growth</li>
-      <li>AI learns from every interaction — <strong>performance compounds over time</strong></li>
-    </ul>
-    <div class="proposal-footer">
-      With each batch, the AI gets smarter. The three patterns above represent the remaining levers — all simple to address, none requiring new technology.
-    </div>
-  </div>
-
-  <!-- Work Performed -->
-  <div class="section-header">
-    <h2>Work Performed</h2>
-    <div class="section-line"></div>
-    <span class="section-badge badge-purple">FULLY AUTOMATED</span>
-  </div>
-
-  <div class="story-grid two-col">
-    <div class="story-card">
-      <div class="story-icon orange">📧</div>
-      <h3>Emails</h3>
-      <div class="story-big-number" style="color: var(--orange)">3,800+</div>
-      <div class="story-detail"><strong>64% open rate</strong> — 12,408 total opens, 5,134 clicks. Zero spam reports.</div>
-      <div class="time-saved has-tooltip" data-tooltip="Drafting, personalizing, sending & tracking each email manually takes ~12 min. 3,800 × 12 min = ~760 hours.">⏱️ ~760h saved</div>
-    </div>
-    <div class="story-card">
-      <div class="story-icon blue">📞</div>
-      <h3>AI Voice Calls</h3>
-      <div class="story-big-number" style="color: var(--blue)">800+</div>
-      <div class="story-detail"><strong>17.2% success rate</strong> (Batch 3) — avg 2.5 min/call. Handles IVR, gatekeepers, objections.</div>
-      <div class="time-saved has-tooltip" data-tooltip="Each manual call takes ~8 min (dialing, waiting, IVR navigation, conversation, logging). 800 × 8 min = ~107 hours.">⏱️ ~107h saved</div>
-    </div>
-    <div class="story-card">
-      <div class="story-icon purple">🎙️</div>
-      <h3>AI Voicemails</h3>
-      <div class="story-big-number" style="color: var(--purple)">200+</div>
-      <div class="story-detail">Personalized voicemails per debtor — mention creditor, amount, and payment link.</div>
-      <div class="time-saved has-tooltip" data-tooltip="Recording a personalized voicemail takes ~5 min per debtor (prep + recording + logging). 200 × 5 min = ~17 hours.">⏱️ ~17h saved</div>
-    </div>
-    <div class="story-card">
-      <div class="story-icon accent">💬</div>
-      <h3>SMS Messages</h3>
-      <div class="story-big-number" style="color: var(--accent)">100+</div>
-      <div class="story-detail">Payment link included — direct path to resolution.</div>
-      <div class="time-saved has-tooltip" data-tooltip="Composing, sending & tracking each SMS manually takes ~3 min. 100 × 3 min = ~5 hours.">⏱️ ~5h saved</div>
-    </div>
-    <div class="story-card">
-      <div class="story-icon green">🔍</div>
-      <h3>AI Data Enrichment</h3>
-      <div class="story-big-number" style="color: var(--green)">305</div>
-      <div class="story-detail">Additional decision-makers found by AI across debtor accounts — <strong class="has-tooltip" data-tooltip="$955K = total outstanding debt on accounts where new contacts were discovered. Previously unreachable — now targeted.">$955K</strong> in additional reachable debt.</div>
-      <div class="time-saved has-tooltip" data-tooltip="Manually researching a contact (LinkedIn, company website, databases) takes ~20 min per contact. 305 × 20 min = ~102 hours.">⏱️ ~102h saved</div>
-    </div>
-    <div class="story-card">
-      <div class="story-icon blue">🛡️</div>
-      <h3>Sender Reputation</h3>
-      <div class="story-big-number" style="color: var(--accent)">0</div>
-      <div class="story-detail">Zero spam complaints — clean sender reputation across all 3,800+ emails.</div>
-    </div>
-  </div>
-
-  <!-- AI Stack -->
-  <div class="ai-stack scroll-reveal">
-    <div class="ai-stack-title">5 AI Systems Working Together</div>
-    <div class="ai-stack-flow">
-      <div class="ai-stack-node">
-        <div class="ai-stack-node-icon">📧</div>
-        <div class="ai-stack-node-name">AI Email Engine</div>
-        <div class="ai-stack-node-stat">3,800+</div>
-        <div class="ai-stack-node-detail">emails sent<br>64% open rate</div>
-      </div>
-      <div class="ai-stack-arrow">→</div>
-      <div class="ai-stack-node">
-        <div class="ai-stack-node-icon">📞</div>
-        <div class="ai-stack-node-name">AI Voice Agent</div>
-        <div class="ai-stack-node-stat">800+</div>
-        <div class="ai-stack-node-detail">calls made<br>17.2% success</div>
-      </div>
-      <div class="ai-stack-arrow">→</div>
-      <div class="ai-stack-node">
-        <div class="ai-stack-node-icon">⚖️</div>
-        <div class="ai-stack-node-name">AI Dispute Resolution</div>
-        <div class="ai-stack-node-stat">36</div>
-        <div class="ai-stack-node-detail">auto-resolved<br>52% of disputes</div>
-      </div>
-      <div class="ai-stack-arrow">→</div>
-      <div class="ai-stack-node">
-        <div class="ai-stack-node-icon">🔍</div>
-        <div class="ai-stack-node-name">AI Data Enrichment</div>
-        <div class="ai-stack-node-stat">305</div>
-        <div class="ai-stack-node-detail">contacts found<br>$955K reached</div>
-      </div>
-      <div class="ai-stack-arrow">→</div>
-      <div class="ai-stack-node">
-        <div class="ai-stack-node-icon">🎯</div>
-        <div class="ai-stack-node-name">AI Scoring &amp; Routing</div>
-        <div class="ai-stack-node-stat">650</div>
-        <div class="ai-stack-node-detail">accounts scored<br>real-time priority</div>
-      </div>
-    </div>
-    <div class="ai-stack-footnote">Each system learns from every interaction and improves across batches — Batch 3 outperformed Batch 1 on every metric.</div>
-  </div>
-
-  <div class="work-summary-bar">
-    <div class="work-summary-stat">
-      <div class="big has-tooltip" data-tooltip="3,800 emails + 800 calls + 200 voicemails + 100 SMS = ~4,900 touchpoints. Data enrichment (305 contacts) tracked separately." style="color: var(--blue)">4,900+</div>
-      <div class="label">Total Touchpoints</div>
-    </div>
-    <div class="work-summary-divider"></div>
-    <div class="work-summary-stat">
-      <div class="big has-tooltip" data-tooltip="~760h emails + ~107h calls + ~17h voicemails + ~5h SMS + ~102h enrichment = ~991h ≈ 1,010h. Based on avg manual time per action in US collection industry." style="color: var(--purple)">1,010h</div>
-      <div class="label">Manual Work Replaced</div>
-    </div>
-    <div class="work-summary-divider"></div>
-    <div class="work-summary-stat">
-      <div class="big has-tooltip" data-tooltip="1,010 hours × $30/h avg US collection agent rate = ~$30,000 in labor costs avoided." style="color: var(--accent)">~$30K</div>
-      <div class="label">Labor Cost Avoided</div>
-    </div>
-  </div>
-</div>
-
-<!-- ============ ADVANCED MODE ============ -->
-<div class="advanced-view" id="advanced-view">
-
-  <!-- Summary Bar -->
-  <div class="summary-bar">
-    <div class="summary-item">
-      <div class="summary-item-label">Total Placed</div>
-      <div class="summary-item-value">$2.12M</div>
-      <div class="summary-item-sub">650 accounts</div>
-    </div>
-    <div class="summary-item">
-      <div class="summary-item-label">Total Recovered</div>
-      <div class="summary-item-value" style="color: var(--accent)">$310K</div>
-      <div class="summary-item-sub">145 accounts</div>
-    </div>
-    <div class="summary-item">
-      <div class="summary-item-label">Recovery Rate</div>
-      <div class="summary-item-value">22.3%</div>
-      <div class="summary-item-sub">by case count</div>
-    </div>
-    <div class="summary-item">
-      <div class="summary-item-label">Net to Dell</div>
-      <div class="summary-item-value" style="color: var(--accent)">$219K</div>
-      <div class="summary-item-sub">after fees</div>
-    </div>
-    <div class="summary-item">
-      <div class="summary-item-label">Touchpoints</div>
-      <div class="summary-item-value">4,900+</div>
-      <div class="summary-item-sub">fully automated</div>
-    </div>
-  </div>
-
-  <!-- Batch Comparison Table -->
-  <div class="data-section">
-    <h3>Batch Comparison</h3>
-    <table class="data-table">
-      <thead>
-        <tr>
-          <th>Metric</th>
-          <th>Batch 1</th>
-          <th>Batch 2</th>
-          <th>Batch 3</th>
-          <th>Trend</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Accounts</td>
-          <td>140</td>
-          <td>109</td>
-          <td>401</td>
-          <td class="trend-up">↑ 2.9x scale</td>
-        </tr>
-        <tr>
-          <td>Amount Placed</td>
-          <td>$611,501</td>
-          <td>$394,234</td>
-          <td>$1,115,590</td>
-          <td class="trend-up">↑ $1.1M</td>
-        </tr>
-        <tr>
-          <td>Amount Recovered</td>
-          <td>$43,356</td>
-          <td>$26,590</td>
-          <td>$239,701</td>
-          <td class="trend-up">↑ 5.5x</td>
-        </tr>
-        <tr>
-          <td>Recovery Rate (Cases)</td>
-          <td>14.3%</td>
-          <td>16.5%</td>
-          <td>26.7%</td>
-          <td class="trend-up">↑ +87%</td>
-        </tr>
-        <tr>
-          <td>Recovery Rate (Amount)</td>
-          <td>7.1%</td>
-          <td>6.7%</td>
-          <td>21.5%</td>
-          <td class="trend-up">↑ +197%</td>
-        </tr>
-        <tr>
-          <td>Revenue (Respaid)</td>
-          <td>$15,682</td>
-          <td>$10,882</td>
-          <td>$64,096</td>
-          <td class="trend-up">↑ 4.0x</td>
-        </tr>
-        <tr>
-          <td>Net to Dell</td>
-          <td>$27,674</td>
-          <td>$15,708</td>
-          <td>$175,605</td>
-          <td class="trend-up">↑ 6.2x</td>
-        </tr>
-        <tr>
-          <td>AI Call Success Rate</td>
-          <td>6.5%</td>
-          <td>0.9%</td>
-          <td>17.2%</td>
-          <td class="trend-up">↑ +165%</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- Visual Bars -->
-  <div class="charts-row">
-    <div class="chart-card">
-      <h3>Recovery by Batch ($)</h3>
-      <div class="bar-group">
-        <div class="bar-label"><span>Batch 1</span><span>$43,356</span></div>
-        <div class="bar-track"><div class="bar-fill blue" style="width: 21%">$43K</div></div>
-      </div>
-      <div class="bar-group">
-        <div class="bar-label"><span>Batch 2</span><span>$26,590</span></div>
-        <div class="bar-track"><div class="bar-fill purple" style="width: 13%">$27K</div></div>
-      </div>
-      <div class="bar-group">
-        <div class="bar-label"><span>Batch 3</span><span>$239,701</span></div>
-        <div class="bar-track"><div class="bar-fill green" style="width: 100%">$240K</div></div>
-      </div>
-    </div>
-
-    <div class="chart-card">
-      <h3>Net to Dell by Batch</h3>
-      <div class="bar-group">
-        <div class="bar-label"><span>Batch 1</span><span>$27,674</span></div>
-        <div class="bar-track"><div class="bar-fill blue" style="width: 18%">$28K</div></div>
-      </div>
-      <div class="bar-group">
-        <div class="bar-label"><span>Batch 2</span><span>$15,708</span></div>
-        <div class="bar-track"><div class="bar-fill purple" style="width: 10%">$16K</div></div>
-      </div>
-      <div class="bar-group">
-        <div class="bar-label"><span>Batch 3</span><span>$175,605</span></div>
-        <div class="bar-track"><div class="bar-fill green" style="width: 100%">$176K</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Email Performance -->
-  <div class="data-section">
-    <h3>Email Engagement</h3>
-    <table class="data-table">
-      <thead>
-        <tr>
-          <th>Metric</th>
-          <th>Value</th>
-          <th>Industry Avg</th>
-          <th>vs Industry</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Open Rate</td>
-          <td><strong>64%</strong></td>
-          <td>15-25%</td>
-          <td class="trend-up">3x better</td>
-        </tr>
-        <tr>
-          <td>Click Rate</td>
-          <td><strong>50%+</strong></td>
-          <td>2-5%</td>
-          <td class="trend-up">10x better</td>
-        </tr>
-        <tr>
-          <td>Total Opens</td>
-          <td>12,408</td>
-          <td>—</td>
-          <td>—</td>
-        </tr>
-        <tr>
-          <td>Total Clicks</td>
-          <td>5,134</td>
-          <td>—</td>
-          <td>—</td>
-        </tr>
-        <tr>
-          <td>Spam Reports</td>
-          <td><strong style="color: var(--accent)">0</strong></td>
-          <td>0.1-0.5%</td>
-          <td class="trend-up">Perfect</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- AI Performance -->
-  <div class="charts-row">
-    <div class="chart-card">
-      <h3>AI Call Success Rate</h3>
-      <div class="bar-group">
-        <div class="bar-label"><span>Batch 1</span><span>6.5%</span></div>
-        <div class="bar-track"><div class="bar-fill blue" style="width: 38%">6.5%</div></div>
-      </div>
-      <div class="bar-group">
-        <div class="bar-label"><span>Batch 2</span><span>0.9%</span></div>
-        <div class="bar-track"><div class="bar-fill purple" style="width: 5%"></div></div>
-      </div>
-      <div class="bar-group">
-        <div class="bar-label"><span>Batch 3</span><span>17.2%</span></div>
-        <div class="bar-track"><div class="bar-fill green" style="width: 100%">17.2%</div></div>
-      </div>
-    </div>
-
-    <div class="chart-card">
-      <h3>Data Enrichment</h3>
-      <div class="metric-rows">
-        <div class="metric-row">
-          <span class="metric-row-label">Additional Contacts Found</span>
-          <span class="metric-row-value" style="color: var(--accent)">305</span>
-        </div>
-        <div class="metric-row">
-          <span class="metric-row-label">Worth of Enriched Accounts</span>
-          <span class="metric-row-value">$955K</span>
-        </div>
-        <div class="metric-row">
-          <span class="metric-row-label">Disputes Resolved</span>
-          <span class="metric-row-value">61 / 69</span>
-        </div>
-        <div class="metric-row">
-          <span class="metric-row-label">Resolved by AI</span>
-          <span class="metric-row-value" style="color: var(--purple)">36</span>
+        <div class="stat-card">
+          <div class="stat-value">$2.12M</div>
+          <div class="stat-label">Total placed</div>
         </div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- Revenue Breakdown -->
-  <div class="data-section">
-    <h3>Financial Breakdown</h3>
-    <table class="data-table">
-      <thead>
-        <tr>
-          <th>Batch</th>
-          <th>Amount Placed</th>
-          <th>Recovered</th>
-          <th>Respaid Fee</th>
-          <th>Net to Dell</th>
-          <th>ROI</th>
-          <th>Dell Retention</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Batch 1</td>
-          <td>$611,501</td>
-          <td>$43,356</td>
-          <td>$15,682</td>
-          <td style="color: var(--accent); font-weight: 700">$27,674</td>
-          <td class="has-tooltip" data-tooltip="No upfront cost — $27.7K pure net gain on written-off receivables. ROI is infinite since Dell's cost basis is $0." style="color: var(--accent); font-weight: 700">∞</td>
-          <td>63.8%</td>
-        </tr>
-        <tr>
-          <td>Batch 2</td>
-          <td>$394,234</td>
-          <td>$26,590</td>
-          <td>$10,882</td>
-          <td style="color: var(--accent); font-weight: 700">$15,708</td>
-          <td class="has-tooltip" data-tooltip="No upfront cost — $15.7K pure net gain on written-off receivables. ROI is infinite since Dell's cost basis is $0." style="color: var(--accent); font-weight: 700">∞</td>
-          <td>59.1%</td>
-        </tr>
-        <tr class="highlight-row">
-          <td>Batch 3</td>
-          <td>$1,115,821</td>
-          <td>$239,701</td>
-          <td>$64,096</td>
-          <td style="color: var(--accent); font-weight: 700">$175,605</td>
-          <td class="has-tooltip" data-tooltip="No upfront cost — $172K pure net gain on written-off receivables. ROI is infinite since Dell's cost basis is $0." style="color: var(--accent); font-weight: 700">∞</td>
-          <td style="color: var(--accent); font-weight: 700">73.2%</td>
-        </tr>
-        <tr class="total-row">
-          <td>Total</td>
-          <td>$2,121,556</td>
-          <td>$309,647</td>
-          <td>$90,659</td>
-          <td style="color: var(--accent)">$218,988</td>
-          <td style="color: var(--accent)">∞</td>
-          <td style="color: var(--accent)">70.7%</td>
-        </tr>
-      </tbody>
-    </table>
-    <div style="margin-top: 8px; font-size: 12px; color: var(--text-tertiary)">
-      ∞ ROI = No upfront cost. Respaid fee is deducted only from successful recoveries. Dell retains 70.4% of all recovered funds on average — improving from 63.8% (B1) to 73.2% (B3).
+<!-- 2. TRAJECTORY -->
+<section class="trajectory" id="s1">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="label" style="margin-bottom: 16px;">Recovery rate by batch</div>
+      <div class="sublabel">Each batch, the AI learns from the previous results.<br>The improvement is compounding.</div>
+    </div>
+    <div class="reveal reveal-delay-1">
+      <div class="traj-steps">
+        <div class="traj-step"><div class="traj-step-num">14.3%</div><div class="traj-step-label">Batch 1</div></div>
+        <div class="traj-arrow">→</div>
+        <div class="traj-step"><div class="traj-step-num">16.5%</div><div class="traj-step-label">Batch 2</div></div>
+        <div class="traj-arrow">→</div>
+        <div class="traj-step"><div class="traj-step-num">26.7%</div><div class="traj-step-label">Batch 3</div></div>
+      </div>
+    </div>
+    <div class="reveal reveal-delay-2">
+      <div class="traj-badge">+87% improvement from Batch 1 to Batch 3</div>
     </div>
   </div>
+</section>
 
-  <!-- Work Volume -->
-  <div class="data-section">
-    <h3>Automation Volume</h3>
-    <table class="data-table">
-      <thead>
-        <tr>
-          <th>Channel</th>
-          <th>Volume</th>
-          <th>Est. Time/Item</th>
-          <th>Total Time Saved</th>
-          <th class="has-tooltip" data-tooltip="Based on avg US collection agent rate of ~$30/hour.">$ Equivalent</th>
-          <th>Key Stat</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Emails Sent</td>
-          <td>3,800+</td>
-          <td class="has-tooltip" data-tooltip="Drafting, personalizing, sending & tracking each email.">~12 min</td>
-          <td>~760h</td>
-          <td>~$22,800</td>
-          <td>64% open rate, 0 spam</td>
-        </tr>
-        <tr>
-          <td>AI Voice Calls</td>
-          <td>800+</td>
-          <td class="has-tooltip" data-tooltip="Dialing, waiting, IVR navigation, conversation & logging.">~8 min</td>
-          <td>~107h</td>
-          <td>~$3,200</td>
-          <td>17.2% success rate (B3)</td>
-        </tr>
-        <tr>
-          <td>AI Voicemails</td>
-          <td>200+</td>
-          <td class="has-tooltip" data-tooltip="Preparing script, recording personalized message & logging.">~5 min</td>
-          <td>~17h</td>
-          <td>~$500</td>
-          <td>Personalized per debtor</td>
-        </tr>
-        <tr>
-          <td>SMS Messages</td>
-          <td>100+</td>
-          <td class="has-tooltip" data-tooltip="Composing, sending & tracking each SMS.">~3 min</td>
-          <td>~5h</td>
-          <td>~$150</td>
-          <td>Payment link included</td>
-        </tr>
-        <tr>
-          <td>Data Enrichment</td>
-          <td>305</td>
-          <td class="has-tooltip" data-tooltip="Researching contact via LinkedIn, company websites, databases.">~20 min</td>
-          <td>~102h</td>
-          <td>~$3,050</td>
-          <td>AI-found decision-makers</td>
-        </tr>
-        <tr class="total-row">
-          <td>Total</td>
-          <td>5,200+</td>
-          <td></td>
-          <td class="has-tooltip" data-tooltip="~760h emails + ~107h calls + ~17h voicemails + ~5h SMS + ~102h enrichment ≈ 1,010h">~1,010h</td>
-          <td style="color: var(--accent); font-weight: 700">~$30,000</td>
-          <td></td>
-        </tr>
-      </tbody>
-    </table>
+<!-- 3. DOLLAR GROWTH -->
+<section id="s2">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="label" style="margin-bottom: 24px;">Dollar recovery growth</div>
+    </div>
+    <div class="reveal reveal-delay-1">
+      <div class="big">$43K <span style="color: var(--text-muted); font-weight: 300;">→</span> $240K</div>
+      <div class="sublabel" style="margin-top: 16px;">Batch 1 to Batch 3 — <span class="color-accent" style="font-weight: 700;">5.5x growth</span></div>
+    </div>
+    <div class="reveal reveal-delay-2">
+      <div class="dual-stats" style="display: flex; align-items: center; justify-content: center; gap: 48px; margin-top: 64px;">
+        <div style="text-align: center;">
+          <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 48px; font-weight: 800; color: var(--accent);">21.5%</div>
+          <div style="font-size: 14px; color: var(--text-dim); margin-top: 8px;">Dollar recovery rate (B3)</div>
+        </div>
+        <div class="divider" style="width: 1px; height: 60px; background: var(--border);"></div>
+        <div style="text-align: center;">
+          <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 48px; font-weight: 800;">73.3%</div>
+          <div style="font-size: 14px; color: var(--text-dim); margin-top: 8px;">Net retention to Dell</div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</section>
 
-<!-- ============ FOOTER ============ -->
+<!-- 4. THE MACHINE -->
+<section style="background: var(--surface);" id="s3">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="label" style="margin-bottom: 24px;">The machine behind the results</div>
+      <div class="mega color-blue">4,900+</div>
+      <div class="sublabel" style="margin-top: 12px;">Automated touchpoints across all 3 batches</div>
+    </div>
+    <div class="reveal reveal-delay-1">
+      <div class="work-grid">
+        <div class="work-card">
+          <div class="work-num color-blue">3,800+</div>
+          <div class="work-label">Personalized emails</div>
+          <div class="work-detail">64% open rate · 0 spam reports</div>
+        </div>
+        <div class="work-card">
+          <div class="work-num color-purple">800+</div>
+          <div class="work-label">AI phone calls</div>
+          <div class="work-detail">17.2% success rate · IVR navigation</div>
+        </div>
+        <div class="work-card">
+          <div class="work-num color-orange">305</div>
+          <div class="work-label">New contacts found by AI</div>
+          <div class="work-detail">$955K in additional coverage</div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal reveal-delay-2" style="margin-top: 48px;">
+      <div class="bottom-stats" style="display: flex; justify-content: center; gap: 64px;">
+        <div style="text-align: center;">
+          <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 32px; font-weight: 800; color: var(--purple);">1,010h</div>
+          <div style="font-size: 13px; color: var(--text-dim); margin-top: 4px;">Manual work replaced</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 32px; font-weight: 800; color: var(--accent);">~$30K</div>
+          <div style="font-size: 13px; color: var(--text-dim); margin-top: 4px;">Labor cost avoided</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 32px; font-weight: 800;">63/70</div>
+          <div style="font-size: 13px; color: var(--text-dim); margin-top: 4px;">Disputes resolved (37 by AI)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. INSIGHT -->
+<section id="s4">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="label" style="margin-bottom: 24px;">What the data tells us</div>
+      <div class="big" style="max-width: 800px; margin: 0 auto;">One pattern explains most of the gap.</div>
+    </div>
+    <div class="reveal reveal-delay-1">
+      <div class="insight-card">
+        <div class="insight-eyebrow">Key finding</div>
+        <div class="insight-title">When debtors receive the actual invoice PDF, 36% pay.<br>When they don't, 0% pay.</div>
+        <div class="insight-text">
+          53 debtors asked for their invoice to process payment internally. Of those, <span class="insight-stat">23 received a PDF</span> from Dell's team — and many paid. The other <span class="insight-stat">30 were directed to a self-service portal</span>. None of them followed through.
+          <br><br>
+          AP departments need a PDF to process — a portal link is not actionable. These 30 accounts represent <span class="insight-stat">$50.8K in recoverable revenue</span> from engaged, willing-to-pay debtors.
+          <br><br>
+          No integration required — a simple shared folder or drag-and-drop is enough.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. BUILD VS BUY -->
+<section style="background: var(--surface);" id="s5">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="label" style="margin-bottom: 24px;">The technology advantage</div>
+      <div class="medium" style="max-width: 700px; margin: 0 auto; margin-bottom: 8px; font-weight: 300;">5 AI systems. Production-ready.<br>All learning from every interaction.</div>
+    </div>
+    <div class="reveal reveal-delay-1">
+      <div class="bvb-grid">
+        <div class="bvb-card build">
+          <div class="bvb-tag">Build in-house</div>
+          <div class="bvb-title">18–24 months</div>
+          <ul class="bvb-list">
+            <li><span class="bvb-icon">⚙️</span> ML engineers + telephony stack</li>
+            <li><span class="bvb-icon">⚖️</span> Compliance layer from scratch</li>
+            <li><span class="bvb-icon">🗄️</span> Training data collection</li>
+            <li><span class="bvb-icon">🔌</span> 5 systems to integrate & maintain</li>
+            <li><span class="bvb-icon">💰</span> $500K–$1M+ annual cost</li>
+          </ul>
+          <div class="bvb-highlight">Email · Voice · Disputes · Enrichment · Scoring — each built from zero</div>
+        </div>
+        <div class="bvb-card buy">
+          <div class="bvb-tag">White-label with Respaid</div>
+          <div class="bvb-title" style="color: var(--accent);">2 weeks</div>
+          <ul class="bvb-list">
+            <li><span class="bvb-icon">✅</span> All 5 AI systems production-ready</li>
+            <li><span class="bvb-icon">✅</span> Compliance built-in (FDCPA, CFPB)</li>
+            <li><span class="bvb-icon">✅</span> Trained on 650+ real Dell accounts</li>
+            <li><span class="bvb-icon">✅</span> Zero integration — we handle everything</li>
+            <li><span class="bvb-icon">✅</span> Performance-based pricing</li>
+          </ul>
+          <div class="bvb-highlight">Heavy lifting is on our side. Your team manages by exception.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. CTA -->
+<section class="cta-section" id="s6">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="label" style="margin-bottom: 24px;">Trajectory</div>
+    </div>
+    <div class="reveal reveal-delay-1">
+      <div class="big">30–35%</div>
+      <div class="sublabel" style="margin-top: 12px;">Projected recovery on the next portfolio —<br>with invoice PDFs and continued AI learning</div>
+    </div>
+    <div class="reveal reveal-delay-2">
+      <div class="cta-line">The AI gets smarter with every batch. The three levers above<br>represent simple, high-impact improvements — none requiring new technology.</div>
+    </div>
+    <div class="reveal reveal-delay-3">
+      <a href="https://cal.com/johnb/30" target="_blank" class="cta-link">Book a 30-min call</a>
+    </div>
+  </div>
+</section>
+
 <div class="footer">
-  <p>Dell Technologies Collection Performance Report — Prepared by <a href="https://respaid.com">Respaid</a> (YC S23)</p>
-  <p style="margin-top: 4px">Data as of February 2026 — Confidential</p>
+  <div class="footer-logo"><a href="https://respaid.com" target="_blank">respaid</a></div>
+  <div class="footer-sub">AI-powered receivables recovery · Y Combinator S23</div>
 </div>
 
 <script>
 // Password gate
-(function() {
-  if (sessionStorage.getItem('dell_auth') === '1') {
-    document.getElementById('pw-overlay').classList.add('hidden');
-    return;
-  }
-  var overlay = document.getElementById('pw-overlay');
-  var input = document.getElementById('pw-input');
-  var btn = document.getElementById('pw-btn');
-  function tryAccess() {
-    if (input.value.trim().toLowerCase() === 'natalie') {
-      sessionStorage.setItem('dell_auth', '1');
-      overlay.classList.add('hidden');
-      setTimeout(function() { overlay.remove(); }, 500);
-    } else {
-      input.classList.add('error');
-      setTimeout(function() { input.classList.remove('error'); }, 400);
-      input.value = '';
-      input.focus();
-    }
-  }
-  btn.addEventListener('click', tryAccess);
-  input.addEventListener('keydown', function(e) { if (e.key === 'Enter') tryAccess(); });
-  input.focus();
-})();
-
-function switchView(view) {
-  const overview = document.getElementById('overview-view');
-  const advanced = document.getElementById('advanced-view');
-  const btns = document.querySelectorAll('.view-btn');
-
-  if (view === 'overview') {
-    overview.style.display = 'block';
-    advanced.style.display = 'none';
-    btns[0].classList.add('active');
-    btns[1].classList.remove('active');
+if (sessionStorage.getItem('dell_auth_v3')) {
+  document.getElementById('gate').classList.add('hidden');
+}
+const gi = document.getElementById('gate-input');
+function tryAccess() {
+  if (['natalie','respaid'].includes(gi.value.trim().toLowerCase())) {
+    sessionStorage.setItem('dell_auth_v3', '1');
+    document.getElementById('gate').classList.add('hidden');
   } else {
-    overview.style.display = 'none';
-    advanced.style.display = 'block';
-    btns[1].classList.add('active');
-    btns[0].classList.remove('active');
+    gi.classList.add('error');
+    setTimeout(() => gi.classList.remove('error'), 400);
   }
-  window.scrollTo(0, 0);
-  initScrollReveal();
 }
+gi.addEventListener('keydown', e => { if (e.key === 'Enter') tryAccess(); });
 
-// Scroll-triggered animations
-function initScrollReveal() {
-  const targets = document.querySelectorAll('.hero-card, .story-card, .callout, .batch-timeline, .data-section, .chart-card, .summary-item, .work-summary-bar, .section-header, .scroll-reveal');
-  targets.forEach(el => {
-    if (!el.classList.contains('scroll-reveal')) {
-      el.classList.add('scroll-reveal');
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Nav dots
+const sections = document.querySelectorAll('section');
+const dots = document.querySelectorAll('.nav-dot');
+const navObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const idx = [...sections].indexOf(e.target);
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
     }
-    el.classList.remove('visible');
   });
-
-  // Stagger children within same parent
-  const parents = new Map();
-  targets.forEach(el => {
-    const p = el.parentElement;
-    if (!parents.has(p)) parents.set(p, []);
-    parents.get(p).push(el);
-  });
-  parents.forEach(children => {
-    children.forEach((el, i) => {
-      el.style.transitionDelay = (i * 80) + 'ms';
-    });
-  });
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.08 });
-
-  targets.forEach(el => observer.observe(el));
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  initScrollReveal();
-  // Subtle icon animations
-  document.querySelectorAll('.story-icon').forEach((el, i) => {
-    el.classList.add(i % 2 === 0 ? 'anim-float' : 'anim-pulse');
-  });
-});
+}, { threshold: 0.5 });
+sections.forEach(s => navObserver.observe(s));
+dots.forEach(d => d.addEventListener('click', () => {
+  sections[+d.dataset.section].scrollIntoView({ behavior: 'smooth' });
+}));
 </script>
-
 </body>
 </html>
